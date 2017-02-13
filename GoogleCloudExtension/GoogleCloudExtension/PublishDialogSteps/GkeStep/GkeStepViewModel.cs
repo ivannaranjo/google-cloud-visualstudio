@@ -287,6 +287,7 @@ namespace GoogleCloudExtension.PublishDialogSteps.GkeStep
             }
             catch (Exception ex) when (!ErrorHandlerUtils.IsCriticalException(ex))
             {
+                GcpOutputWindow.OutputLine(ex.Message);
                 GcpOutputWindow.OutputLine(String.Format(Resources.GkePublishDeploymentFailureMessage, project.Name));
                 StatusbarHelper.SetText(Resources.PublishFailureStatusMessage);
                 _publishDialog.FinishFlow();
