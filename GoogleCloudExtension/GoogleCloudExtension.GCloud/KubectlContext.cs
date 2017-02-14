@@ -40,6 +40,8 @@ namespace GoogleCloudExtension.GCloud
         /// </summary>
         void IDisposable.Dispose()
         {
+            return;
+
             if (ConfigPath == null)
             {
                 return;
