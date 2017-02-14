@@ -110,8 +110,8 @@ namespace GoogleCloudExtension.Deployment
             Directory.CreateDirectory(stageDirectory);
             progress.Report(0.1);
 
-            using (var cleanup = new Disposable(() => CommonUtils.Cleanup(stageDirectory)))
-            {
+            //using (var cleanup = new Disposable(() => CommonUtils.Cleanup(stageDirectory)))
+            //{
                 var appRootPath = Path.Combine(stageDirectory, "app");
                 var buildFilePath = Path.Combine(stageDirectory, "cloudbuild.yaml");
                 var projectName = CommonUtils.GetProjectName(projectPath);
@@ -224,7 +224,7 @@ namespace GoogleCloudExtension.Deployment
                     wasExposed: serviceExposed,
                     deploymentUpdated: deploymentUpdated,
                     deploymentScaled: deploymentScaled);
-            }
+            // }
         }
 
         private static async Task<string> WaitForServiceAddressAsync(string name, Action waitingCallback, KubectlContext kubectlContext)
