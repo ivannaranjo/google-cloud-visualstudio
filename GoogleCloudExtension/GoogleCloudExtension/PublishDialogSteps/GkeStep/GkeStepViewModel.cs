@@ -420,31 +420,5 @@ namespace GoogleCloudExtension.PublishDialogSteps.GkeStep
 
             return viewModel;
         }
-<<<<<<< HEAD
-
-        private async Task<bool> VerifyGCloudDependencies()
-        {
-            if (!await GCloudWrapper.CanUseGKEAsync())
-            {
-                if (!GCloudWrapper.IsGCloudCliInstalled())
-                {
-                    LinkPromptDialogWindow.PromptUser(
-                        Resources.ResetPasswordMissingGcloudTitle,
-                        Resources.ResetPasswordGcloudMissingMessage,
-                        new LinkInfo(link: "https://cloud.google.com/sdk/", caption: Resources.ResetPasswordGcloudLinkCaption));
-                }
-                else
-                {
-                    UserPromptUtils.ErrorPrompt(
-                        message: Resources.GkePublishMissingKubectlMessage,
-                        title: Resources.GcloudMissingComponentTitle);
-                }
-                return false;
-            }
-
-            return true;
-        }
-=======
->>>>>>> upstream/master
     }
 }

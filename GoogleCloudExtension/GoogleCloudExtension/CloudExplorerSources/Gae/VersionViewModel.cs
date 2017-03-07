@@ -275,7 +275,7 @@ namespace GoogleCloudExtension.CloudExplorerSources.Gae
         /// </summary>
         private string GetCaption()
         {
-            if (!_hasTrafficAllocation)
+            if (!HasTrafficAllocation)
             {
                 return _version.Id;
             }
