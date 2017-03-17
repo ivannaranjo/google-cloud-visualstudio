@@ -4,7 +4,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:utils="clr-namespace:GoogleCloudExtension.Utils;assembly=GoogleCloudExtension.Utils"
              xmlns:CloudExplorer="clr-namespace:GoogleCloudExtension.CloudExplorer"
-             xmlns:vsshell="clr-namespace:Microsoft.VisualStudio.Shell;assembly=Microsoft.VisualStudio.Shell.14.0"
+             xmlns:vsshell="clr-namespace:Microsoft.VisualStudio.Shell;assembly=Microsoft.VisualStudio.Shell.15.0"
              xmlns:controls="clr-namespace:GoogleCloudExtension.Controls"
              xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.AeroLite" x:Class="GoogleCloudExtension.CloudExplorer.CloudExplorerToolWindowControl"
              xmlns:crm="clr-namespace:Google.Apis.CloudResourceManager.v1.Data;assembly=Google.Apis.CloudResourceManager.v1"
