@@ -4,7 +4,6 @@
 *.dll
 *.kproj.user
 *.xproj.user
-*.csproj.user
 **/.vs/*
 .dockercfg
 **/project.lock.json
