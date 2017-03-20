@@ -107,6 +107,11 @@ namespace GoogleCloudExtension
         /// </summary>
         public static string VsVersion { get; private set; }
 
+        /// <summary>
+        /// Returns the edition of Visual Studio on which the extension is running.
+        /// </summary>
+        public static string VsEdition { get; private set; }
+
         public GoogleCloudExtensionPackage()
         {
             // Register all of the properties.
@@ -220,6 +225,7 @@ namespace GoogleCloudExtension
 
             _dteInstance = (DTE)Package.GetGlobalService(typeof(DTE));
             VsVersion = _dteInstance.Version;
+            VsEdition = _dteInstance.Edition;
 
             // Update the installation status of the package.
             CheckInstallationStatus();
