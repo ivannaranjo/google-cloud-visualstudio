@@ -3,8 +3,8 @@
 # Version for the build.
 version: 1.0.{build}-{branch}
 
-# We're using Visual Studio 2015
-image: Visual Studio 2015
+# We're using Visual Studio 2017 to build the extension.
+image: Visual Studio 2017
 
 # Perform the build.
 # TODO: Fetch the output of the build and publish it.
