@@ -2,6 +2,12 @@
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <VsixType>v3</VsixType>
+    <!--
+    This will turn off deploying the .vsix to the experimental instance. Due to a bug (see https://github.com/Microsoft/extendvs/issues/41)
+    the unzipping of the extension to the experimental instance fails because the paths are too long. This means that you will have to
+    install the extension in the experimental instance by hand. See the README.md for instructions on how.
+    -->
+    <DeployExtension>false</DeployExtension>
   </PropertyGroup>
   <Import Project="..\packages\Microsoft.VisualStudio.Sdk.BuildTasks.14.0.14.0.23-pre\build\Microsoft.VisualStudio.Sdk.BuildTasks.14.0.props" Condition="Exists('..\packages\Microsoft.VisualStudio.Sdk.BuildTasks.14.0.14.0.23-pre\build\Microsoft.VisualStudio.Sdk.BuildTasks.14.0.props')" />
   <PropertyGroup>
