@@ -91,6 +91,7 @@
     <Compile Include="DeploymentException.cs" />
     <Compile Include="GkeDeployment.cs" />
     <Compile Include="GkeDeploymentResult.cs" />
+    <Compile Include="IToolsPathProvider.cs" />
     <Compile Include="NetCoreAppUtils.cs" />
     <Compile Include="ProjectConfigurationStatus.cs" />
     <Compile Include="WindowsVmDeployment.cs" />

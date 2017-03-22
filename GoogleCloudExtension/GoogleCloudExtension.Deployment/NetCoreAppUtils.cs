@@ -28,8 +28,6 @@ namespace GoogleCloudExtension.Deployment
     {
         internal const string DockerfileName = "Dockerfile";
 
-        private static readonly Lazy<string> s_dotnetPath = new Lazy<string>(GetDotnetPath);
-
         /// <summary>
         /// This template is the smallest possible Dockerfile needed to deploy an ASP.NET Core app to
         /// App Engine Flex environment. It invokes the entry point .dll given by {0}, sets up the environment
@@ -49,11 +47,16 @@ namespace GoogleCloudExtension.Deployment
         /// </summary>
         /// <param name="projectPath">The full path to the project to publish.</param>
         /// <param name="stageDirectory">The directory to which to publish.</param>
+        /// <param name="pathsProvider">The provider for paths.</param>
         /// <param name="outputAction">The callback to call with output from the command.</param>
-        internal static Task<bool> CreateAppBundleAsync(string projectPath, string stageDirectory, Action<string> outputAction)
+        internal static Task<bool> CreateAppBundleAsync(
+            string projectPath,
+            string stageDirectory,
+            IToolsPathProvider pathsProvider,
+            Action<string> outputAction)
         {
             var arguments = $"publish -o \"{stageDirectory}\" -c Release";
-            var externalTools = GetExternalToolsPath();
+            var externalTools = pathsProvider.GetExternalToolsPath();
             var workingDir = Path.GetDirectoryName(projectPath);
             var env = new Dictionary<string, string>
             {
@@ -64,7 +67,7 @@ namespace GoogleCloudExtension.Deployment
             Debug.WriteLine($"Setting working directory to {workingDir}");
             outputAction($"dotnet {arguments}");
             return ProcessUtils.RunCommandAsync(
-                file: s_dotnetPath.Value,
+                file: pathsProvider.GetDotnetPath(),
                 args: arguments,
                 workingDir: workingDir,
                 handler: (o, e) => outputAction(e.Line),
@@ -118,16 +121,6 @@ namespace GoogleCloudExtension.Deployment
             return File.Exists(targetDockerfile);
         }
 
-        private static string GetExternalToolsPath()
-        {
-            var programFilesPath = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86);
-            return Path.Combine(programFilesPath, @"Microsoft Visual Studio 14.0\Web\External");
-        }
-
-        private static string GetDotnetPath()
-        {
-            var programFilesPath = Environment.ExpandEnvironmentVariables("%ProgramW6432%");
-            return Path.Combine(programFilesPath, @"dotnet\dotnet.exe");
-        }
+        
     }
 }

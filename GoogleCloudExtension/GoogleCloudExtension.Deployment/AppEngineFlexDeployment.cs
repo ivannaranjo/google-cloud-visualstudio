@@ -69,11 +69,13 @@ namespace GoogleCloudExtension.Deployment
         /// <param name="projectPath">The full path to the project.json for the ASP.NET Core project.</param>
         /// <param name="options">The <seealso cref="DeploymentOptions"/> to use.</param>
         /// <param name="progress">The progress indicator.</param>
+        /// <param name="toolsPathProvider">The tools path provider to use.</param>
         /// <param name="outputAction">The action to call with lines from the command output.</param>
         public static async Task<AppEngineFlexDeploymentResult> PublishProjectAsync(
             string projectPath,
             DeploymentOptions options,
             IProgress<double> progress,
+            IToolsPathProvider toolsPathProvider,
             Action<string> outputAction)
         {
             if (!File.Exists(projectPath))
@@ -90,7 +92,7 @@ namespace GoogleCloudExtension.Deployment
             {
                 // Wait for the bundle creation operation to finish, updating progress as it goes.
                 if (!await ProgressHelper.UpdateProgress(
-                        NetCoreAppUtils.CreateAppBundleAsync(projectPath, stageDirectory, outputAction),
+                        NetCoreAppUtils.CreateAppBundleAsync(projectPath, stageDirectory, toolsPathProvider, outputAction),
                         progress,
                         from: 0.1, to: 0.3))
                 {

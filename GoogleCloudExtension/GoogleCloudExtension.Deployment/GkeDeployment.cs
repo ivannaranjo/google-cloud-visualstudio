@@ -104,6 +104,7 @@ namespace GoogleCloudExtension.Deployment
             string projectPath,
             DeploymentOptions options,
             IProgress<double> progress,
+            IToolsPathProvider toolsPathProvider,
             Action<string> outputAction)
         {
             if (!File.Exists(projectPath))
@@ -122,7 +123,7 @@ namespace GoogleCloudExtension.Deployment
                 var buildFilePath = Path.Combine(stageDirectory, "cloudbuild.yaml");
 
                 if (!await ProgressHelper.UpdateProgress(
-                        NetCoreAppUtils.CreateAppBundleAsync(projectPath, appRootPath, outputAction),
+                        NetCoreAppUtils.CreateAppBundleAsync(projectPath, appRootPath, toolsPathProvider, outputAction),
                         progress,
                         from: 0.1, to: 0.3))
                 {
