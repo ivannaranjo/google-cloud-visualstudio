@@ -17,5 +17,15 @@ namespace GoogleCloudExtension.Deployment
         /// Returns the path to the dotnet.exe tool to use during deployment.
         /// </summary>
         string GetDotnetPath();
+
+        /// <summary>
+        /// Retruns the path to the msbuild.exe to use for builds.
+        /// </summary>
+        string GetMsbuildPath();
+
+        /// <summary>
+        /// Returns the path to the msdeploy.exe to use to deploy apps.
+        /// </summary>
+        string GetMsdeployPath();
     }
 }

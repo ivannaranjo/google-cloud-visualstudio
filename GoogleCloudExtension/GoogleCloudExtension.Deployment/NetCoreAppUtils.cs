@@ -120,7 +120,5 @@ namespace GoogleCloudExtension.Deployment
             var targetDockerfile = Path.Combine(projectDirectory, DockerfileName);
             return File.Exists(targetDockerfile);
         }
-
-        
     }
 }

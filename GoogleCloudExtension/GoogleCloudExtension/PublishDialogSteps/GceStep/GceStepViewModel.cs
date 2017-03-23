@@ -19,6 +19,7 @@ using GoogleCloudExtension.Analytics.Events;
 using GoogleCloudExtension.DataSources;
 using GoogleCloudExtension.Deployment;
 using GoogleCloudExtension.GCloud;
+using GoogleCloudExtension.HostAbstraction;
 using GoogleCloudExtension.ManageWindowsCredentials;
 using GoogleCloudExtension.PublishDialog;
 using GoogleCloudExtension.Utils;
@@ -161,6 +162,7 @@ namespace GoogleCloudExtension.PublishDialogSteps.GceStep
                         SelectedInstance,
                         SelectedCredentials,
                         progress,
+                        HostAbstractionLayer.ToolsPathProvider,
                         (l) => GcpOutputWindow.OutputLine(l));
                     deploymentDuration = DateTime.Now - startDeploymentTime;
                 }
