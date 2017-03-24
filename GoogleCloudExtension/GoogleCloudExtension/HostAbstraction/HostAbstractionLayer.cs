@@ -24,7 +24,7 @@ namespace GoogleCloudExtension.HostAbstraction
                     return new VS14.ToolsPathProvider();
 
                 case VisualStudio2017Version:
-                    throw new NotImplementedException();
+                    return new VS15.ToolsPathProvider(GoogleCloudExtensionPackage.VsEdition);
 
                 default:
                     throw new NotSupportedException($"Version {GoogleCloudExtensionPackage.VsVersion} is not supported.");

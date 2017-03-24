@@ -31,7 +31,7 @@ namespace GoogleCloudExtension.HostAbstraction.VS14
         public string GetMsdeployPath()
         {
             var programFilesPath = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
-            return Path.Combine(programFilesPath, @"IIS\Microsoft Web Deploy V3\msdeploy.exe");
+                return Path.Combine(programFilesPath, @"IIS\Microsoft Web Deploy V3\msdeploy.exe");
         }
     }
 }
