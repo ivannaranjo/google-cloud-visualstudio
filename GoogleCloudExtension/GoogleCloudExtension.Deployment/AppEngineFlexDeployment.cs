@@ -66,7 +66,7 @@ namespace GoogleCloudExtension.Deployment
         /// <summary>
         /// Publishes the ASP.NET Core project to App Engine Flex.
         /// </summary>
-        /// <param name="projectPath">The full path to the project.json for the ASP.NET Core project.</param>
+        /// <param name="projectPath">The full path to the project file for the ASP.NET Core project.</param>
         /// <param name="options">The <seealso cref="DeploymentOptions"/> to use.</param>
         /// <param name="progress">The progress indicator.</param>
         /// <param name="toolsPathProvider">The tools path provider to use.</param>
@@ -139,9 +139,9 @@ namespace GoogleCloudExtension.Deployment
         }
 
         /// <summary>
-        /// Generates the app.yaml for the given project.json file.
+        /// Generates the app.yaml for the given project file.
         /// </summary>
-        /// <param name="projectPath">The full path to the project.json for the project.</param>
+        /// <param name="projectPath">The full path to the project for the project.</param>
         public static bool GenerateAppYaml(string projectPath)
         {
             try
@@ -159,9 +159,9 @@ namespace GoogleCloudExtension.Deployment
         }
 
         /// <summary>
-        /// Generates the Dockerfile for the given project.json file.
+        /// Generates the Dockerfile for the given project file.
         /// </summary>
-        /// <param name="projectPath">The full path to the project.json for the project.</param>
+        /// <param name="projectPath">The full path to the project for the project.</param>
         public static bool GenerateDockerfile(string projectPath)
         {
             try
@@ -179,7 +179,7 @@ namespace GoogleCloudExtension.Deployment
         /// <summary>
         /// Checks the project configuration files to see if they exist.
         /// </summary>
-        /// <param name="projectPath">The full path to the project.json for the project.</param>
+        /// <param name="projectPath">The full path to the project file for the project.</param>
         /// <returns>An instance of <seealso cref="ProjectConfigurationStatus"/> with the status of the config.</returns>
         public static ProjectConfigurationStatus CheckProjectConfiguration(string projectPath)
         {
@@ -194,7 +194,7 @@ namespace GoogleCloudExtension.Deployment
         /// <summary>
         /// This methods looks for lines of the form "service: name" in the app.yaml file provided.
         /// </summary>
-        /// <param name="projectPath">The path to the project.json for the project, the app.yaml should be next to it.</param>
+        /// <param name="projectPath">The path to the project file for the project, the app.yaml should be next to it.</param>
         /// <returns>The service name if found, <seealso cref="DefaultServiceName"/> if not found.</returns>
         private static string GetAppEngineService(string projectPath)
         {

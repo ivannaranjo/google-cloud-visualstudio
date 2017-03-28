@@ -45,7 +45,7 @@ namespace GoogleCloudExtension.Deployment
         /// <summary>
         /// Creates an app bundle by publishing it to the given directory. It only publishes the release configuration.
         /// </summary>
-        /// <param name="projectPath">The full path to the project to publish.</param>
+        /// <param name="projectPath">The full path to the project file to publish.</param>
         /// <param name="stageDirectory">The directory to which to publish.</param>
         /// <param name="pathsProvider">The provider for paths.</param>
         /// <param name="outputAction">The callback to call with output from the command.</param>
@@ -78,7 +78,7 @@ namespace GoogleCloudExtension.Deployment
         /// Creates the Dockerfile necessary to package up an ASP.NET Core app if one is not already present at the root
         /// path of the project.
         /// </summary>
-        /// <param name="projectPath">The full path to the project.json.</param>
+        /// <param name="projectPath">The full path to the project file to publish.</param>
         /// <param name="stageDirectory">The directory where to save the Dockerfile.</param>
         internal static void CopyOrCreateDockerfile(string projectPath, string stageDirectory)
         {
@@ -100,7 +100,7 @@ namespace GoogleCloudExtension.Deployment
         /// <summary>
         /// Generates the Dockerfile for this .NET Core project.
         /// </summary>
-        /// <param name="projectPath">The full path to the project.json file for the project.</param>
+        /// <param name="projectPath">The full path to the project file for the project.</param>
         internal static void GenerateDockerfile(string projectPath)
         {
             var projectDirectory = Path.GetDirectoryName(projectPath);
@@ -112,7 +112,7 @@ namespace GoogleCloudExtension.Deployment
         /// <summary>
         /// Checks if the Dockerfile for the project was created.
         /// </summary>
-        /// <param name="projectPath">The full path to the project.json for the project.</param>
+        /// <param name="projectPath">The full path to the project for the project.</param>
         /// <returns>True if the Dockerfile exists, false otherwise.</returns>
         internal static bool CheckDockerfile(string projectPath)
         {

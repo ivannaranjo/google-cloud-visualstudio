@@ -95,7 +95,7 @@ namespace GoogleCloudExtension.Deployment
         /// Publishes the ASP.NET Core app using the <paramref name="options"/> to produce the right deployment
         /// and service (if needed).
         /// </summary>
-        /// <param name="projectPath">The full path to the project.json file of the startup project.</param>
+        /// <param name="projectPath">The full path to the project file of the startup project.</param>
         /// <param name="options">The options to use for the deployment.</param>
         /// <param name="progress">The progress interface for progress notifications.</param>
         /// <param name="outputAction">The output callback to invoke for output from the process.</param>
