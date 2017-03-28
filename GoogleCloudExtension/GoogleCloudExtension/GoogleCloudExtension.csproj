@@ -198,6 +198,8 @@
     <Compile Include="OauthLoginFlow\OauthLoginFlowWindowContent.xaml.cs">
       <DependentUpon>OauthLoginFlowWindowContent.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Projects\NetCoreCsprojProject.cs" />
+    <Compile Include="Projects\ProjectParser.cs" />
     <Compile Include="PublishDialogSteps\ChoiceStep\Choice.cs" />
     <Compile Include="PublishDialogSteps\ChoiceStep\ChoiceStepContent.xaml.cs">
       <DependentUpon>ChoiceStepContent.xaml</DependentUpon>
@@ -236,13 +238,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="SolutionUtils\ISolutionProject.cs" />
-    <Compile Include="SolutionUtils\KnownProjectTypes.cs" />
-    <Compile Include="SolutionUtils\NetCoreProject.cs" />
+    <Compile Include="Projects\NetCoreProjectJsonProject.cs" />
     <Compile Include="SolutionUtils\ProjectHelper.cs" />
     <Compile Include="SolutionUtils\ProjectSourceFile.cs" />
     <Compile Include="SolutionUtils\SolutionHelper.cs" />
-    <Compile Include="SolutionUtils\VsProject.cs" />
+    <Compile Include="Projects\VsProject.cs" />
     <Compile Include="SplitTrafficManagement\SplitTrafficWindow.cs" />
     <Compile Include="SplitTrafficManagement\SplitTrafficModel.cs" />
     <Compile Include="SplitTrafficManagement\SplitTrafficViewModel.cs" />

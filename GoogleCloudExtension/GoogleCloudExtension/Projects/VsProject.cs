@@ -13,17 +13,18 @@
 // limitations under the License.
 
 using EnvDTE;
+using GoogleCloudExtension.Deployment;
 using System;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 
-namespace GoogleCloudExtension.SolutionUtils
+namespace GoogleCloudExtension.Projects
 {
     /// <summary>
     /// This class represents a native Visual Studio project.
     /// </summary>
-    internal class VsProject : ISolutionProject
+    internal class VsProject : IParsedProject
     {
         private const string MsbuildNamespace = "http://schemas.microsoft.com/developer/msbuild/2003";
         private const string WebApplicationGuid = "{349c5851-65df-11da-9384-00065b846f21}";
@@ -31,7 +32,7 @@ namespace GoogleCloudExtension.SolutionUtils
         private readonly Project _project;
         private readonly Lazy<KnownProjectTypes> _knownProjectType;
 
-        #region ISolutionProject
+        #region IParsedProject
 
         public string DirectoryPath => Path.GetDirectoryName(_project.FullName);
 

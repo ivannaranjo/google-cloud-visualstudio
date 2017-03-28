@@ -12,18 +12,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+using GoogleCloudExtension.Deployment;
 using System.IO;
 
-namespace GoogleCloudExtension.SolutionUtils
+namespace GoogleCloudExtension.Projects
 {
     /// <summary>
     /// This class represetns a .NET Core project.
     /// </summary>
-    internal class NetCoreProject : ISolutionProject
+    internal class NetCoreProjectJsonProject : IParsedProject
     {
         private readonly string _projectJsonPath;
 
-        #region ISolutionProject
+        #region IParsedProject
 
         public string DirectoryPath => Path.GetDirectoryName(_projectJsonPath);
 
@@ -31,11 +32,11 @@ namespace GoogleCloudExtension.SolutionUtils
 
         public string Name => Path.GetFileName(Path.GetDirectoryName(_projectJsonPath));
 
-        public KnownProjectTypes ProjectType => KnownProjectTypes.NetCoreWebApplication;
+        public KnownProjectTypes ProjectType => KnownProjectTypes.NetCoreWebApplication1_0;
 
         #endregion
 
-        public NetCoreProject(string projectJsonPath)
+        public NetCoreProjectJsonProject(string projectJsonPath)
         {
             _projectJsonPath = projectJsonPath;
         }
