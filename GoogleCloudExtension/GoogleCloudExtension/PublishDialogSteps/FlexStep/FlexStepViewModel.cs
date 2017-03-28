@@ -130,7 +130,7 @@ namespace GoogleCloudExtension.PublishDialogSteps.FlexStep
                 {
                     var startDeploymentTime = DateTime.Now;
                     result = await AppEngineFlexDeployment.PublishProjectAsync(
-                        project.FullPath,
+                        project,
                         options,
                         progress,
                         HostAbstractionLayer.ToolsPathProvider,

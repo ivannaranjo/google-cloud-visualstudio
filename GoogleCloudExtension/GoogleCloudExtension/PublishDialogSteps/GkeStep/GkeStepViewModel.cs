@@ -270,7 +270,7 @@ namespace GoogleCloudExtension.PublishDialogSteps.GkeStep
                     {
                         var deploymentStartTime = DateTime.Now;
                         result = await GkeDeployment.PublishProjectAsync(
-                            project.FullPath,
+                            project,
                             options,
                             progress,
                             HostAbstractionLayer.ToolsPathProvider,

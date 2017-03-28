@@ -45,19 +45,19 @@ namespace GoogleCloudExtension.Deployment
         /// <summary>
         /// Creates an app bundle by publishing it to the given directory. It only publishes the release configuration.
         /// </summary>
-        /// <param name="projectPath">The full path to the project file to publish.</param>
+        /// <param name="project">The project.</param>
         /// <param name="stageDirectory">The directory to which to publish.</param>
         /// <param name="pathsProvider">The provider for paths.</param>
         /// <param name="outputAction">The callback to call with output from the command.</param>
         internal static Task<bool> CreateAppBundleAsync(
-            string projectPath,
+            IParsedProject project,
             string stageDirectory,
             IToolsPathProvider pathsProvider,
             Action<string> outputAction)
         {
             var arguments = $"publish -o \"{stageDirectory}\" -c Release";
             var externalTools = pathsProvider.GetExternalToolsPath();
-            var workingDir = Path.GetDirectoryName(projectPath);
+            var workingDir = project.DirectoryPath;
             var env = new Dictionary<string, string>
             {
                 { "PATH", $"{Environment.GetEnvironmentVariable("PATH")};{externalTools}" },
@@ -78,12 +78,11 @@ namespace GoogleCloudExtension.Deployment
         /// Creates the Dockerfile necessary to package up an ASP.NET Core app if one is not already present at the root
         /// path of the project.
         /// </summary>
-        /// <param name="projectPath">The full path to the project file to publish.</param>
+        /// <param name="project">The project.</param>
         /// <param name="stageDirectory">The directory where to save the Dockerfile.</param>
-        internal static void CopyOrCreateDockerfile(string projectPath, string stageDirectory)
+        internal static void CopyOrCreateDockerfile(IParsedProject project, string stageDirectory)
         {
-            var sourceDir = Path.GetDirectoryName(projectPath);
-            var sourceDockerfile = Path.Combine(sourceDir, DockerfileName);
+            var sourceDockerfile = Path.Combine(project.DirectoryPath, DockerfileName);
             var targetDockerfile = Path.Combine(stageDirectory, DockerfileName);
 
             if (File.Exists(sourceDockerfile))
@@ -92,7 +91,7 @@ namespace GoogleCloudExtension.Deployment
             }
             else
             {
-                var content = String.Format(DockerfileDefaultContent, CommonUtils.GetProjectName(projectPath));
+                var content = String.Format(DockerfileDefaultContent, project.Name);
                 File.WriteAllText(targetDockerfile, content);
             }
         }
@@ -100,24 +99,22 @@ namespace GoogleCloudExtension.Deployment
         /// <summary>
         /// Generates the Dockerfile for this .NET Core project.
         /// </summary>
-        /// <param name="projectPath">The full path to the project file for the project.</param>
-        internal static void GenerateDockerfile(string projectPath)
+        /// <param name="projectPath">The project.</param>
+        internal static void GenerateDockerfile(IParsedProject project)
         {
-            var projectDirectory = Path.GetDirectoryName(projectPath);
-            var targetDockerfile = Path.Combine(projectDirectory, DockerfileName);
-            var content = String.Format(DockerfileDefaultContent, CommonUtils.GetProjectName(projectPath));
+            var targetDockerfile = Path.Combine(project.DirectoryPath, DockerfileName);
+            var content = String.Format(DockerfileDefaultContent, project.Name);
             File.WriteAllText(targetDockerfile, content);
         }
 
         /// <summary>
         /// Checks if the Dockerfile for the project was created.
         /// </summary>
-        /// <param name="projectPath">The full path to the project for the project.</param>
+        /// <param name="project">The project.</param>
         /// <returns>True if the Dockerfile exists, false otherwise.</returns>
-        internal static bool CheckDockerfile(string projectPath)
+        internal static bool CheckDockerfile(IParsedProject project)
         {
-            var projectDirectory = Path.GetDirectoryName(projectPath);
-            var targetDockerfile = Path.Combine(projectDirectory, DockerfileName);
+            var targetDockerfile = Path.Combine(project.DirectoryPath, DockerfileName);
             return File.Exists(targetDockerfile);
         }
     }
