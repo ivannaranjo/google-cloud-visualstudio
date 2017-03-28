@@ -158,12 +158,12 @@ namespace GoogleCloudExtension.PublishDialogSteps.GceStep
                 {
                     var startDeploymentTime = DateTime.Now;
                     result = await WindowsVmDeployment.PublishProjectAsync(
-                        project.FullPath,
+                        project,
                         SelectedInstance,
                         SelectedCredentials,
                         progress,
                         HostAbstractionLayer.ToolsPathProvider,
-                        (l) => GcpOutputWindow.OutputLine(l));
+                        GcpOutputWindow.OutputLine);
                     deploymentDuration = DateTime.Now - startDeploymentTime;
                 }
 

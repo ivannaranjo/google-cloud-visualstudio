@@ -31,13 +31,13 @@ namespace GoogleCloudExtension.Deployment
         /// <summary>
         /// Publishes an ASP.NET 4.x project to the given GCE <seealso cref="Instance"/>.
         /// </summary>
-        /// <param name="projectPath">The full path to the project file.</param>
+        /// <param name="project">The project to deploy.</param>
         /// <param name="targetInstance">The instance to deploy.</param>
         /// <param name="credentials">The Windows credentials to use to deploy to the <paramref name="targetInstance"/>.</param>
         /// <param name="progress">The progress indicator.</param>
         /// <param name="outputAction">The action to call with lines of output.</param>
         public static async Task<bool> PublishProjectAsync(
-            string projectPath,
+            IParsedProject project,
             Instance targetInstance,
             WindowsInstanceCredentials credentials,
             IProgress<double> progress,
@@ -56,7 +56,7 @@ namespace GoogleCloudExtension.Deployment
             {
                 // Wait for the bundle operation to finish and update the progress in the mean time to show progress.
                 if (!await ProgressHelper.UpdateProgress(
-                        CreateAppBundleAsync(projectPath, stagingDirectory, toolsPathProvider, outputAction),
+                        CreateAppBundleAsync(project, stagingDirectory, toolsPathProvider, outputAction),
                         progress,
                         from: 0.1, to: 0.5))
                 {
@@ -122,12 +122,12 @@ namespace GoogleCloudExtension.Deployment
         /// present in all Web projects. It publishes to the staging directory by using the FileSystem method.
         /// </summary>
         private static Task<bool> CreateAppBundleAsync(
-            string projectPath,
+            IParsedProject project,
             string stageDirectory,
             IToolsPathProvider toolsPathProvider,
             Action<string> outputAction)
         {
-            var arguments = $@"""{projectPath}""" + " " +
+            var arguments = $@"""{project.FullPath}""" + " " +
                 "/p:Configuration=Release " +
                 "/p:Platform=AnyCPU " +
                 "/t:WebPublish " +
