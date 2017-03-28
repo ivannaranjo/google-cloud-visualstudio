@@ -18,9 +18,9 @@ using System.IO;
 namespace GoogleCloudExtension.Projects
 {
     /// <summary>
-    /// This class represetns a .NET Core project.
+    /// This class represetns a project.json based .NET Core project.
     /// </summary>
-    internal class NetCoreProjectJsonProject : IParsedProject
+    internal class NetCoreJsonProject : IParsedProject
     {
         private readonly string _projectJsonPath;
 
@@ -36,7 +36,7 @@ namespace GoogleCloudExtension.Projects
 
         #endregion
 
-        public NetCoreProjectJsonProject(string projectJsonPath)
+        public NetCoreJsonProject(string projectJsonPath)
         {
             _projectJsonPath = projectJsonPath;
         }

@@ -45,7 +45,7 @@ namespace GoogleCloudExtension.Projects
 
         private static IParsedProject ParseMsbuildProject(Project project)
         {
-            return new VsProject(project);
+            return new NetCsprojProject(project);
         }
 
         private static IParsedProject ParseProjectJson(Project project)
@@ -59,7 +59,7 @@ namespace GoogleCloudExtension.Projects
                 return null;
             }
 
-            return new NetCoreProjectJsonProject(projectJsonPath);
+            return new NetCoreJsonProject(projectJsonPath);
         }
     }
 }
