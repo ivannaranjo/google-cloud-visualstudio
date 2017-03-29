@@ -26,11 +26,8 @@ namespace GoogleCloudExtension.Projects
     /// </summary>
     internal class NetCsprojProject : IParsedProject
     {
-        private const string MsbuildNamespace = "http://schemas.microsoft.com/developer/msbuild/2003";
-        private const string WebApplicationGuid = "{349c5851-65df-11da-9384-00065b846f21}";
 
         private readonly Project _project;
-        private readonly Lazy<KnownProjectTypes> _knownProjectType;
 
         #region IParsedProject
 
@@ -40,36 +37,13 @@ namespace GoogleCloudExtension.Projects
 
         public string Name => _project.Name;
 
-        public KnownProjectTypes ProjectType => _knownProjectType.Value;
+        public KnownProjectTypes ProjectType => KnownProjectTypes.WebApplication;
 
         #endregion
 
         public NetCsprojProject(Project project)
         {
             _project = project;
-            _knownProjectType = new Lazy<KnownProjectTypes>(GetProjectType);
-        }
-
-        private KnownProjectTypes GetProjectType()
-        {
-            var dom = XDocument.Load(_project.FullName);
-            var projectGuids = dom.Root
-                .Elements(XName.Get("PropertyGroup", MsbuildNamespace))
-                .Descendants(XName.Get("ProjectTypeGuids", MsbuildNamespace))
-                .Select(x => x.Value)
-                .FirstOrDefault();
-
-            if (projectGuids == null)
-            {
-                return KnownProjectTypes.None;
-            }
-
-            var guids = projectGuids.Split(';');
-            if (guids.Contains(WebApplicationGuid))
-            {
-                return KnownProjectTypes.WebApplication;
-            }
-            return KnownProjectTypes.None;
         }
     }
 }

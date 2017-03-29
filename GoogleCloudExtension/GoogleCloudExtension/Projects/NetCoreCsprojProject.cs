@@ -1,9 +1,13 @@
-﻿using GoogleCloudExtension.Deployment;
+﻿using EnvDTE;
+using GoogleCloudExtension.Deployment;
+using GoogleCloudExtension.Utils;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace GoogleCloudExtension.Projects
 {
@@ -12,35 +16,39 @@ namespace GoogleCloudExtension.Projects
     /// </summary>
     internal class NetCoreCsprojProject : IParsedProject
     {
-        public string DirectoryPath
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
+        private readonly Project _project;
 
-        public string FullPath
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
+        #region IParsedProject
 
-        public string Name
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
+        public string DirectoryPath => Path.GetDirectoryName(_project.FullName);
 
-        public KnownProjectTypes ProjectType
+        public string FullPath => _project.FullName;
+
+        public string Name => _project.Name;
+
+        public KnownProjectTypes ProjectType { get; }
+
+        #endregion
+
+        public NetCoreCsprojProject(Project project, string targetFramework)
         {
-            get
+            GcpOutputWindow.OutputDebugLine($"Found project {project.FullName} targeting {targetFramework}");
+
+            _project = project;
+            switch (targetFramework)
             {
-                throw new NotImplementedException();
+                case "netcoreapp1.0":
+                    ProjectType = KnownProjectTypes.NetCoreWebApplication1_0;
+                    break;
+
+                case "netcoreapp1.1":
+                    ProjectType = KnownProjectTypes.NetCoreWebApplication1_1;
+                    break;
+
+                default:
+                    GcpOutputWindow.OutputDebugLine($"Unsopported target framework {targetFramework}");
+                    ProjectType = KnownProjectTypes.None;
+                    break;
             }
         }
     }

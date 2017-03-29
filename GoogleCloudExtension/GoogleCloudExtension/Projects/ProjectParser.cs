@@ -1,5 +1,6 @@
 ﻿using EnvDTE;
 using GoogleCloudExtension.Deployment;
+using GoogleCloudExtension.Utils;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -7,11 +8,19 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace GoogleCloudExtension.Projects
 {
     internal static class ProjectParser
     {
+        // Identifiers of an ASP.NET 4.x .csproj
+        private const string MsbuildNamespace = "http://schemas.microsoft.com/developer/msbuild/2003";
+        private const string WebApplicationGuid = "{349c5851-65df-11da-9384-00065b846f21}";
+
+        // Identifier of an ASP.NET Core 1.x .csproj
+        private const string AspNetCoreSdk = "Microsoft.NET.Sdk.Web";
+
         // Extension used in .NET Core 1.0 project placeholders, the real project is in project.json.
         private const string XProjExtension = ".xproj";
         private const string ProjectJsonFileName = "project.json";
@@ -45,7 +54,41 @@ namespace GoogleCloudExtension.Projects
 
         private static IParsedProject ParseMsbuildProject(Project project)
         {
-            return new NetCsprojProject(project);
+            GcpOutputWindow.OutputDebugLine($"Parsing .csproj {project.FullName}");
+
+            var dom = XDocument.Load(project.FullName);
+            var sdk = dom.Root.Attribute("Sdk");
+            if (sdk != null)
+            {
+                GcpOutputWindow.OutputDebugLine($"Found a new style .csproj {sdk.Value}");
+                if (sdk.Value == AspNetCoreSdk)
+                {
+                    var targetFramework = dom.Root
+                        .Elements("PropertyGroup")
+                        .Descendants("TargetFramework")
+                        .Select(x => x.Value)
+                        .FirstOrDefault();
+                    return new NetCoreCsprojProject(project, targetFramework);
+                }
+            }
+
+            var projectGuids = dom.Root
+                .Elements(XName.Get("PropertyGroup", MsbuildNamespace))
+                .Descendants(XName.Get("ProjectTypeGuids", MsbuildNamespace))
+                .Select(x => x.Value)
+                .FirstOrDefault();
+
+            if (projectGuids == null)
+            {
+                return null;
+            }
+
+            var guids = projectGuids.Split(';');
+            if (guids.Contains(WebApplicationGuid))
+            {
+                return new NetCsprojProject(project);
+            }
+            return null;
         }
 
         private static IParsedProject ParseProjectJson(Project project)
