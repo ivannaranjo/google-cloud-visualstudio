@@ -6,15 +6,15 @@
 readonly workspace=$(dirname $0)/../
 
 # Look for literal strings on .cs files.
-${workspace}/tools/find_files.py -d $1 -e .cs | xargs grep -HnE \
+${workspace}/tools/find_files.py -d $1 -e .cs | xargs -d "\n" grep -HnE \
     "caption: \"|message: \"|title: \"|Header = \"|Caption = \""
-${workspace}/tools/find_files.py -d $1 -e .cs | xargs grep -HnE \
+${workspace}/tools/find_files.py -d $1 -e .cs | xargs -d "\n" grep -HnE \
     "caption: \\$\"|message: \\$\"|title: \"|Header = \\$\"|Caption = \\$\""
-${workspace}/tools/find_files.py -d $1 -e .cs | xargs grep -HnE \
+${workspace}/tools/find_files.py -d $1 -e .cs | xargs -d "\n" grep -HnE \
     "\\[Category\\(|\\[DisplayName\\(|\\[Description\\("
-${workspace}/tools/find_files.py -d $1 -e .cs | xargs grep -HnE \
+${workspace}/tools/find_files.py -d $1 -e .cs | xargs -d "\n" grep -HnE \
     "\\.OutputLine\\(\\$\"|\\.OutputLine\\(\""
 
 # Look for literal strings on .xaml files.
-${workspace}/tools/find_files.py -d $1 -e .xaml | xargs grep -HnE \
+${workspace}/tools/find_files.py -d $1 -e .xaml | xargs -d "\n" grep -HnE \
     "Header=\"[A-Z]|Content=\"[A-Z]|Text=\"[A-Z]"
