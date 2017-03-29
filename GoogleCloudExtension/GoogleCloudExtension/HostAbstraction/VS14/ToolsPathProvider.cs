@@ -15,9 +15,7 @@ namespace GoogleCloudExtension.HostAbstraction.VS14
         {
             var programFilesPath = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86);
             var result = Path.Combine(programFilesPath, @"Microsoft Visual Studio 14.0\Web\External");
-#if DEBUG
-            GcpOutputWindow.OutputLine($"External tools path: {result}");
-#endif
+            GcpOutputWindow.OutputDebugLine($"External tools path: {result}");
             return result;
         }
 
@@ -25,9 +23,7 @@ namespace GoogleCloudExtension.HostAbstraction.VS14
         {
             var programFilesPath = Environment.ExpandEnvironmentVariables("%ProgramW6432%");
             var result = Path.Combine(programFilesPath, @"dotnet\dotnet.exe");
-#if DEBUG
-            GcpOutputWindow.OutputLine($"Dotnet path: {result}");
-#endif
+            GcpOutputWindow.OutputDebugLine($"Dotnet path: {result}");
             return result;
         }
 
@@ -35,9 +31,7 @@ namespace GoogleCloudExtension.HostAbstraction.VS14
         {
             var programFilesPath = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86);
             var result = Path.Combine(programFilesPath, @"MSBuild\14.0\Bin\MSBuild.exe");
-#if DEBUG
-            GcpOutputWindow.OutputLine($"Msbuild path: {result}");
-#endif
+            GcpOutputWindow.OutputDebugLine($"Msbuild path: {result}");
             return result;
         }
 
@@ -45,9 +39,7 @@ namespace GoogleCloudExtension.HostAbstraction.VS14
         {
             var programFilesPath = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
             var result = Path.Combine(programFilesPath, @"IIS\Microsoft Web Deploy V3\msdeploy.exe");
-#if DEBUG
-            GcpOutputWindow.OutputLine($"Msdeploy path: {result}");
-#endif
+            GcpOutputWindow.OutputDebugLine($"Msdeploy path: {result}");
             return result;
         }
     }

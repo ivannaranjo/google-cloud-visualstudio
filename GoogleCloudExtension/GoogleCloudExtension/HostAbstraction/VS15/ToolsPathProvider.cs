@@ -20,22 +20,23 @@ namespace GoogleCloudExtension.HostAbstraction.VS15
 
         public string GetDotnetPath()
         {
-            throw new NotImplementedException();
+            var programFilesPath = Environment.ExpandEnvironmentVariables("%ProgramW6432%");
+            var result = Path.Combine(programFilesPath, @"dotnet\dotnet.exe");
+            GcpOutputWindow.OutputDebugLine($"Dotnet path: {result}");
+            return result;
         }
 
         public string GetExternalToolsPath()
         {
-            throw new NotImplementedException();
+            return "";
         }
 
         public string GetMsbuildPath()
         {
             var programFilesPath = Environment.GetEnvironmentVariable("ProgramFiles(x86)");
             var result = Path.Combine(programFilesPath, $@"Microsoft Visual Studio\2017\{_edition}\MSBuild\15.0\Bin\MSBuild.exe");
-#if DEBUG
-            GcpOutputWindow.OutputLine($"Program Files: {programFilesPath}");
-            GcpOutputWindow.OutputLine($"Msbuild V15 Path: {result}");
-#endif
+            GcpOutputWindow.OutputDebugLine($"Program Files: {programFilesPath}");
+            GcpOutputWindow.OutputDebugLine($"Msbuild V15 Path: {result}");
             return result;
         }
 
@@ -43,10 +44,8 @@ namespace GoogleCloudExtension.HostAbstraction.VS15
         {
             var programFilesPath = Environment.GetEnvironmentVariable("ProgramFiles");
             var result = Path.Combine(programFilesPath, @"IIS\Microsoft Web Deploy V3\msdeploy.exe");
-#if DEBUG
-            GcpOutputWindow.OutputLine($"Program Files: {programFilesPath}");
-            GcpOutputWindow.OutputLine($"Msdeploy V15 path: {result}");
-#endif
+            GcpOutputWindow.OutputDebugLine($"Program Files: {programFilesPath}");
+            GcpOutputWindow.OutputDebugLine($"Msdeploy V15 path: {result}");
             return result;
         }
     }
