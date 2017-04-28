@@ -176,6 +176,11 @@
       <DependentUpon>ProgressIndicator.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\TimeBox.cs" />
+    <Compile Include="CreateAppEngineAppDialog\CreateAppEngineAppDialogContent.xaml.cs">
+      <DependentUpon>CreateAppEngineAppDialogContent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CreateAppEngineAppDialog\CreateAppEngineAppDialogWindow.cs" />
+    <Compile Include="CreateAppEngineAppDialog\CreateAppEngineAppDialogViewModel.cs" />
     <Compile Include="FirewallManagement\PortInfo.cs" />
     <Compile Include="FirewallManagement\PortManagerViewModel.cs" />
     <Compile Include="FirewallManagement\PortManagerWindow.cs" />
@@ -790,6 +795,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\ProgressIndicator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CreateAppEngineAppDialog\CreateAppEngineAppDialogContent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
