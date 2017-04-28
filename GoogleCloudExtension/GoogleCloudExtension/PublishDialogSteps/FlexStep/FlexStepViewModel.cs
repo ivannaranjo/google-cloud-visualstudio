@@ -23,6 +23,7 @@ using GoogleCloudExtension.Utils;
 using System;
 using System.Diagnostics;
 using System.Windows;
+using GoogleCloudExtension.DataSources;
 
 namespace GoogleCloudExtension.PublishDialogSteps.FlexStep
 {
@@ -97,6 +98,17 @@ namespace GoogleCloudExtension.PublishDialogSteps.FlexStep
                 {
                     Debug.WriteLine("Gcloud dependencies not met, aborting publish operation.");
                     return;
+                }
+
+                var gaeSource = new GaeDataSource(
+                    CredentialsStore.Default.CurrentProjectId,
+                    CredentialsStore.Default.CurrentGoogleCredential,
+                    GoogleCloudExtensionPackage.ApplicationName);
+                var app = await gaeSource.GetApplicationAsync();
+                if (app == null)
+                {
+                    Debug.WriteLine("No application was found.");
+                    // TODO: Create the app.
                 }
 
                 ShellUtils.SaveAllFiles();
