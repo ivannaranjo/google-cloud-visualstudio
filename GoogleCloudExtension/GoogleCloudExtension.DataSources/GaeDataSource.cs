@@ -43,7 +43,7 @@ namespace GoogleCloudExtension.DataSources
         /// <summary>
         /// Fetches the the GAE application for the given project.
         /// </summary>
-        /// <returns>The GAE application.</returns>
+        /// <returns>The GAE application, null if no application can be found.</returns>
         public async Task<Application> GetApplicationAsync()
         {
             try
@@ -53,6 +53,12 @@ namespace GoogleCloudExtension.DataSources
             }
             catch (GoogleApiException ex)
             {
+                if (ex.HttpStatusCode == System.Net.HttpStatusCode.NotFound)
+                {
+                    Debug.WriteLine($"Could not find application {ProjectId}.");
+                    return null;
+                }
+
                 Debug.WriteLine($"Failed to get application: {ex.Message}");
                 throw new DataSourceException(ex.Message, ex);
             }

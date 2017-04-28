@@ -466,6 +466,15 @@ namespace GoogleCloudExtension {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No application found.
+        /// </summary>
+        public static string CloudExplorerGaeNoApplicationCaption {
+            get {
+                return ResourceManager.GetString("CloudExplorerGaeNoApplicationCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No services found..
         /// </summary>
         public static string CloudExplorerGaeNoServicesFoundCaption {

@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+using Google;
 using Google.Apis.Appengine.v1.Data;
 using GoogleCloudExtension.Accounts;
 using GoogleCloudExtension.Analytics;
@@ -48,13 +49,17 @@ namespace GoogleCloudExtension.CloudExplorerSources.Gae
             Caption = Resources.CloudExplorerGaeFailedToLoadServicesCaption,
             IsError = true
         };
+        private static readonly TreeLeaf s_noAppPlaceholder = new TreeLeaf
+        {
+            Caption = Resources.CloudExplorerGaeNoApplicationCaption,
+            IsWarning = true
+        };
 
         private Lazy<GaeDataSource> _dataSource;
-        private Task<Application> _gaeApplication;
 
         public GaeDataSource DataSource => _dataSource.Value;
 
-        public Task<Application> GaeApplication => _gaeApplication;
+        public Application GaeApplication { get; private set; }
 
         public override string RootCaption => Resources.CloudExplorerGaeRootNodeCaption;
 
@@ -146,17 +151,25 @@ namespace GoogleCloudExtension.CloudExplorerSources.Gae
             try
             {
                 Debug.WriteLine("Loading list of services.");
-                _gaeApplication = _dataSource.Value.GetApplicationAsync();
-                IList<ServiceViewModel> services = await LoadServiceList();
-
-                Children.Clear();
-                foreach (var item in services)
+                GaeApplication = await _dataSource.Value.GetApplicationAsync();
+                if (GaeApplication == null)
                 {
-                    Children.Add(item);
+                    Children.Clear();
+                    Children.Add(s_noAppPlaceholder);
                 }
-                if (Children.Count == 0)
+                else
                 {
-                    Children.Add(s_noItemsPlacehoder);
+                    IList<ServiceViewModel> services = await LoadServiceList();
+
+                    Children.Clear();
+                    foreach (var item in services)
+                    {
+                        Children.Add(item);
+                    }
+                    if (Children.Count == 0)
+                    {
+                        Children.Add(s_noItemsPlacehoder);
+                    }
                 }
                 EventsReporterWrapper.ReportEvent(GaeServicesLoadedEvent.Create(CommandStatus.Success));
             }
