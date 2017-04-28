@@ -1,4 +1,6 @@
-﻿using GoogleCloudExtension.Theming;
+﻿using GoogleCloudExtension.Accounts;
+using GoogleCloudExtension.DataSources;
+using GoogleCloudExtension.Theming;
 using GoogleCloudExtension.Utils;
 using System;
 using System.Collections.Generic;
@@ -10,18 +12,11 @@ namespace GoogleCloudExtension.CreateAppEngineAppDialog
 {
     class CreateAppEngineAppDialogViewModel : ViewModelBase
     {
-        private static readonly string[] s_regions = new string[]
-        {
-            "us-central",
-            "europe-west",
-            "us-east1",
-            "asia-northeast1"
-        };
-
         private readonly CreateAppEngineAppDialogWindow _owner;
+        private readonly GaeDataSource _dataSource;
         private string _selectedRegion;
 
-        public IEnumerable<string> Regions => s_regions;
+        public AsyncPropertyValue<IEnumerable<string>> Locations { get; }
 
         public string SelectedRegion
         {
@@ -36,13 +31,24 @@ namespace GoogleCloudExtension.CreateAppEngineAppDialog
         public CreateAppEngineAppDialogViewModel(CreateAppEngineAppDialogWindow owner)
         {
             _owner = owner;
+            _dataSource = new GaeDataSource(
+                CredentialsStore.Default.CurrentProjectId,
+                CredentialsStore.Default.CurrentGoogleCredential,
+                GoogleCloudExtensionPackage.ApplicationName);
 
+            Locations = new AsyncPropertyValue<IEnumerable<string>>(GetLocationsAsync());
             CreateAppCommand = new ProtectedCommand(OnCreateAppCommand);
         }
 
         private void OnCreateAppCommand()
         {
             throw new NotImplementedException();
+        }
+
+        private async Task<IEnumerable<string>> GetLocationsAsync()
+        {
+            var locations = await _dataSource.GetLocationsAsync();
+            return locations.Select(x => x.LocationId).ToList();
         }
     }
 }

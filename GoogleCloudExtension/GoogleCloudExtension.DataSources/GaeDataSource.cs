@@ -64,6 +64,27 @@ namespace GoogleCloudExtension.DataSources
             }
         }
 
+        public async Task<IList<Location>> GetLocationsAsync()
+        {
+            return await LoadPagedListAsync(
+                (token) =>
+                {
+                    var request = Service.Apps.Locations.List(ProjectId);
+                    if (!String.IsNullOrEmpty(token))
+                    {
+                        Debug.WriteLine($"{nameof(GaeDataSource)}, {nameof(GetServiceListAsync)}: Fetching page: {token}");
+                        request.PageToken = token;
+                    }
+                    else
+                    {
+                        Debug.WriteLine($"{nameof(GaeDataSource)}, {nameof(GetServiceListAsync)}: Fetching first page.");
+                    }
+                    return request.ExecuteAsync();
+                },
+                x => x.Locations,
+                x => x.NextPageToken);
+        }
+
         /// <summary>
         /// Fetches the list of GAE services for the given project.
         /// </summary>
