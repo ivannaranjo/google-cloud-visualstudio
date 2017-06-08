@@ -54,7 +54,7 @@ namespace GoogleCloudExtension.Projects.DotNetCore
                     break;
 
                 default:
-                    GcpOutputWindow.OutputDebugLine($"Unsopported target framework {targetFramework}");
+                    GcpOutputWindow.OutputDebugLine($"Unsupported target framework {targetFramework}");
                     ProjectType = KnownProjectTypes.None;
                     break;
             }

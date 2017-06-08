@@ -219,6 +219,7 @@
     <Compile Include="Projects\DotNet4\CsprojProject.cs" />
     <Compile Include="Projects\DotNetCore\CsprojProject.cs" />
     <Compile Include="Projects\DotNetCore\JsonProject.cs" />
+    <Compile Include="Projects\MSBuild\MSBuildProjectParser.cs" />
     <Compile Include="Projects\ProjectParser.cs" />
     <Compile Include="PublishDialogSteps\ChoiceStep\Choice.cs" />
     <Compile Include="PublishDialogSteps\ChoiceStep\ChoiceStepContent.xaml.cs">
@@ -644,6 +645,7 @@
       <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.Build, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Build.Framework" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.VisualStudio.CommandBars, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">

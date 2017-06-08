@@ -15,6 +15,7 @@
 using EnvDTE;
 using GoogleCloudExtension.Deployment;
 using GoogleCloudExtension.Projects.DotNetCore;
+using GoogleCloudExtension.Projects.MSBuild;
 using GoogleCloudExtension.Utils;
 using System;
 using System.Diagnostics;
@@ -91,12 +92,9 @@ namespace GoogleCloudExtension.Projects
                     GcpOutputWindow.OutputDebugLine($"Found a .NET Core style .csproj {sdk.Value}");
                     if (sdk.Value == AspNetCoreSdk)
                     {
-                        var targetFramework = dom.Root
-                            .Elements(PropertyGroupElementName)
-                            .Descendants(TargetFrameworkElementName)
-                            .Select(x => x.Value)
-                            .FirstOrDefault();
-                        return new DotNetCore.CsprojProject(project, targetFramework);
+                        var parser = new MSBuildProjectParser(project.FullName);
+                        var targetFramework = parser.TargetFramework;
+                        return new CsprojProject(project, targetFramework);
                     }
                 }
 
