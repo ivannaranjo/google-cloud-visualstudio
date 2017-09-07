@@ -202,7 +202,7 @@ namespace GoogleCloudExtension.GCloud
             }
         }
 
-        public static Task<IList<GcrImage>> GetDockerImamges(string repo, GCloudContext context)
+        public static Task<IList<GcrImage>> GetGcrDockerImagesAsync(string repo, GCloudContext context)
         {
             return GetJsonOutputAsync<IList<GcrImage>>($"container images list --repository={repo}", context);
         }

@@ -32,6 +32,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using GoogleCloudExtension.Utils.Async;
 using GoogleCloudExtension.CloudExplorerSources.Gke;
+using GoogleCloudExtension.CloudExplorerSources.Gcr;
 
 namespace GoogleCloudExtension.CloudExplorer
 {
@@ -223,6 +224,9 @@ namespace GoogleCloudExtension.CloudExplorer
 
                 // The Google Cloud Storage source.
                 new GcsSource(this),
+
+                // The Google Container Registry source.
+                new GcrSource(this),
 
                 // The Google Cloud SQL source.
                 new CloudSQLSource(this),

@@ -173,6 +173,10 @@
     <Compile Include="CloudExplorerSources\Gae\VersionItem.cs" />
     <Compile Include="CloudExplorerSources\Gae\VersionViewModel.cs" />
     <Compile Include="CloudExplorerSources\Gce\GceInstanceViewModel.cs" />
+    <Compile Include="CloudExplorerSources\Gcr\GcrImageItem.cs" />
+    <Compile Include="CloudExplorerSources\Gcr\GcrImageViewModel.cs" />
+    <Compile Include="CloudExplorerSources\Gcr\GcrSource.cs" />
+    <Compile Include="CloudExplorerSources\Gcr\GcrSourceRootViewModel.cs" />
     <Compile Include="CloudExplorerSources\Gcs\BucketLocationViewModel.cs" />
     <Compile Include="CloudExplorerSources\Gke\GkeClusterItem.cs" />
     <Compile Include="CloudExplorerSources\Gke\GkeClusterViewModel.cs" />
