@@ -31,6 +31,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Media;
 using GoogleCloudExtension.Utils.Async;
+using GoogleCloudExtension.CloudExplorerSources.Gke;
 
 namespace GoogleCloudExtension.CloudExplorer
 {
@@ -216,6 +217,9 @@ namespace GoogleCloudExtension.CloudExplorer
 
                 // The Google Compute Engine source.
                 new GceSource(this),
+
+                // The Google Container Engine source.
+                new GkeSource(this),
 
                 // The Google Cloud Storage source.
                 new GcsSource(this),
