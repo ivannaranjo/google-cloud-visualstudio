@@ -202,6 +202,11 @@ namespace GoogleCloudExtension.GCloud
             }
         }
 
+        public static Task<IList<GcrImage>> GetDockerImamges(string repo, GCloudContext context)
+        {
+            return GetJsonOutputAsync<IList<GcrImage>>($"container images list --repository={repo}", context);
+        }
+
         private static async Task<IList<string>> GetInstalledComponentsAsync()
         {
             Debug.WriteLine("Reading list of components.");

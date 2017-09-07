@@ -55,6 +55,7 @@
     <Compile Include="CommonEnvironmentVariables.cs" />
     <Compile Include="GCloudValidationResult.cs" />
     <Compile Include="Models\CloudSdkVersions.cs" />
+    <Compile Include="Models\GcrImage.cs" />
     <Compile Include="Models\GkeDeployment.cs" />
     <Compile Include="KubectlContext.cs" />
     <Compile Include="KubectlWrapper.cs" />
