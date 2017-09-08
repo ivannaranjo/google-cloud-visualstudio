@@ -43,6 +43,8 @@ namespace GoogleCloudExtension.DataSources
             }
         }
 
+        public string GetFullPath(string name, string hash) => $"gcr.io/{_projectId}/{name}@{hash}";
+
         private async Task<string> GetUserCredentialsAsync()
         {
             var token = await _credentials.UnderlyingCredential.GetAccessTokenForRequestAsync();

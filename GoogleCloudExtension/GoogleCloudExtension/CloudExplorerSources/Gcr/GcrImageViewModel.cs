@@ -19,6 +19,7 @@ namespace GoogleCloudExtension.CloudExplorerSources.Gcr
         private readonly GcrSourceRootViewModel _owner;
         private readonly RepoImage _image;
         private readonly string _hash;
+        private readonly string _fullPath;
 
         public GcrImageViewModel(GcrSourceRootViewModel owner, string name, string hash, RepoImage image)
         {
@@ -26,13 +27,15 @@ namespace GoogleCloudExtension.CloudExplorerSources.Gcr
             _image = image;
             _hash = hash;
 
+            _fullPath = owner.DataSource.GetFullPath(name, hash);
+
             Caption = String.Join(", ", image.Tags);
             Icon = s_imageIcon.Value;
         }
 
         #region ICloudExplorerItemSource
 
-        object ICloudExplorerItemSource.Item => new GcrImageItem(_hash, _image);
+        object ICloudExplorerItemSource.Item => new GcrImageItem(hash: _hash, fullPath: _fullPath, image: _image);
 
         event EventHandler ICloudExplorerItemSource.ItemChanged
         {
