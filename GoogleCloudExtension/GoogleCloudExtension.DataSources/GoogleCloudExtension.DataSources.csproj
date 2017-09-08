@@ -133,6 +133,9 @@
     <Compile Include="DatabaseInstanceExtensions.cs" />
     <Compile Include="DataSourceBase.cs" />
     <Compile Include="DataSourceException.cs" />
+    <Compile Include="DockerRepoDataSource.cs" />
+    <Compile Include="Docker\RepoImage.cs" />
+    <Compile Include="Docker\RepoTags.cs" />
     <Compile Include="IPubsubDataSource.cs" />
     <Compile Include="IResourceManagerDataSource.cs" />
     <Compile Include="PubSubDataSource.cs" />

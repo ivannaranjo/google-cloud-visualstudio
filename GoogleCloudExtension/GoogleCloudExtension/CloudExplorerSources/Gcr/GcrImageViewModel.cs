@@ -1,38 +1,28 @@
-﻿using System;
-using GoogleCloudExtension.CloudExplorer;
-using GoogleCloudExtension.GCloud.Models;
-using System.Windows.Media;
+﻿using GoogleCloudExtension.CloudExplorer;
 using GoogleCloudExtension.Utils;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace GoogleCloudExtension.CloudExplorerSources.Gcr
 {
-    public class GcrImageViewModel : TreeLeaf, ICloudExplorerItemSource
+    class GcrImageViewModel : TreeLeaf
     {
-        private const string IconClusterPath = "CloudExplorerSources/Gae/Resources/instance_icon_running.png";
+        private const string IconImagePath = "CloudExplorerSources/Gae/Resources/service_icon.png";
 
-        private static readonly Lazy<ImageSource> s_imageIcon = new Lazy<ImageSource>(() => ResourceUtils.LoadImage(IconClusterPath));
-
+        private static readonly Lazy<ImageSource> s_imageIcon = new Lazy<ImageSource>(() => ResourceUtils.LoadImage(IconImagePath));
 
         private readonly GcrSourceRootViewModel _owner;
-        private readonly GcrImage _image;
 
-        public GcrImageViewModel(GcrSourceRootViewModel owner, GcrImage image)
+        public GcrImageViewModel(GcrSourceRootViewModel owner, string name)
         {
             _owner = owner;
-            _image = image;
 
-            Caption = _image.Name;
+            Caption = name;
             Icon = s_imageIcon.Value;
         }
-
-        #region ICloudExplorerItemSource
-        object ICloudExplorerItemSource.Item => new GcrImageItem(_image);
-
-        event EventHandler ICloudExplorerItemSource.ItemChanged
-        {
-            add { }
-            remove { }
-        }
-        #endregion
     }
 }

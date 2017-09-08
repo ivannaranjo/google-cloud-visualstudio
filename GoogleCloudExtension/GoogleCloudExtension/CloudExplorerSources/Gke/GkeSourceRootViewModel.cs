@@ -51,7 +51,7 @@ namespace GoogleCloudExtension.CloudExplorerSources.Gke
 
         public override void InvalidateProjectOrAccount()
         {
-            Debug.WriteLine("New credentials, invalidating data source for GCE");
+            Debug.WriteLine("New credentials, invalidating data source for GKE");
             _dataSource = new Lazy<GkeDataSource>(CreateDataSource);
         }
 
@@ -95,6 +95,5 @@ namespace GoogleCloudExtension.CloudExplorerSources.Gke
                 return null;
             }
         }
-
     }
 }

@@ -1,9 +1,12 @@
 ﻿using GoogleCloudExtension.Accounts;
 using GoogleCloudExtension.CloudExplorer;
+using GoogleCloudExtension.DataSources;
+using GoogleCloudExtension.DataSources.Docker;
 using GoogleCloudExtension.GCloud;
 using GoogleCloudExtension.GCloud.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,7 +31,10 @@ namespace GoogleCloudExtension.CloudExplorerSources.Gcr
             IsWarning = true
         };
 
-        private IList<GcrImage> _images;
+        private RepoTags _rootTags;
+        private Lazy<DockerRepoDataSource> _dataSource;
+
+        public DockerRepoDataSource DataSource => _dataSource.Value;
 
         public override TreeLeaf ErrorPlaceholder => s_errorPlaceholder;
 
@@ -38,21 +44,27 @@ namespace GoogleCloudExtension.CloudExplorerSources.Gcr
 
         public override string RootCaption => "Container Registry";
 
+        public override void Initialize(ICloudSourceContext context)
+        {
+            base.Initialize(context);
+
+            InvalidateProjectOrAccount();
+        }
+
+        public override void InvalidateProjectOrAccount()
+        {
+            Debug.WriteLine("New credentials, invalidating data source for GCR");
+            _dataSource = new Lazy<DockerRepoDataSource>(CreateDataSource);
+        }
+
+
         protected override async Task LoadDataOverride()
         {
             try
             {
-                var context = new GCloudContext
-                {
-                    CredentialsPath = CredentialsStore.Default.CurrentAccountPath,
-                    ProjectId = CredentialsStore.Default.CurrentProjectId,
-                    AppName = GoogleCloudExtensionPackage.ApplicationName,
-                    AppVersion = GoogleCloudExtensionPackage.ApplicationVersion,
-                };
-                var repo = $"gcr.io/{context.ProjectId}";
+                _rootTags = null;
+                _rootTags = await _dataSource.Value.GetRepoTagsAsync("");
 
-                _images = null;
-                _images = await GCloudWrapper.GetGcrDockerImagesAsync(repo, context);
                 PresentViewModels();
             }
             catch (GCloudException ex)
@@ -64,14 +76,30 @@ namespace GoogleCloudExtension.CloudExplorerSources.Gcr
         private void PresentViewModels()
         {
             Children.Clear();
-            var viewModels = CalculateViewModels(_images);
+            var viewModels = CalculateViewModels(_rootTags);
             foreach (var model in viewModels)
             {
                 Children.Add(model);
             }
         }
 
-        private IEnumerable<GcrImageViewModel> CalculateViewModels(IList<GcrImage> images)
-            => images.Select(x => new GcrImageViewModel(this, x));
+        private IEnumerable<GcrPathStepViewModel> CalculateViewModels(RepoTags tags)
+        {
+            return tags.Children.Select(x => new GcrPathStepViewModel(this, x));
+        }
+
+        private DockerRepoDataSource CreateDataSource()
+        {
+            if (CredentialsStore.Default.CurrentProjectId != null)
+            {
+                return new DockerRepoDataSource(
+                    CredentialsStore.Default.CurrentProjectId,
+                    CredentialsStore.Default.CurrentGoogleCredential);
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 }
