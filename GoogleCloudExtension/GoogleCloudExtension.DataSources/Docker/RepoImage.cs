@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace GoogleCloudExtension.DataSources.Docker
@@ -7,5 +8,14 @@ namespace GoogleCloudExtension.DataSources.Docker
     {
         [JsonProperty("tag")]
         public IList<string> Tags { get; set; }
+
+        [JsonProperty("timeCreatedMs")]
+        public ulong Created { get; set; } 
+
+        [JsonProperty("timeUploadedMs")]
+        public ulong Updated { get; set; }
+
+        [JsonProperty("imageSizeBytes")]
+        public ulong Size { get; set; }
     }
 }

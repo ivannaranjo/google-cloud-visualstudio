@@ -79,7 +79,8 @@ namespace GoogleCloudExtension.CloudExplorerSources.Gke
             }
         }
 
-        private IEnumerable<TreeNode> CalculateViewModels(IList<Cluster> clusters) => clusters.Select(x => new GkeClusterViewModel(this, x));
+        private IEnumerable<TreeNode> CalculateViewModels(IList<Cluster> clusters)
+            => clusters?.Select(x => new GkeClusterViewModel(this, x)) ?? Enumerable.Empty<TreeNode>();
 
         private GkeDataSource CreateDataSource()
         {

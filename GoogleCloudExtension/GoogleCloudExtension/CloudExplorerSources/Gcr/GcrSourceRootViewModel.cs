@@ -17,7 +17,7 @@ namespace GoogleCloudExtension.CloudExplorerSources.Gcr
     {
         private static readonly TreeLeaf s_loadingPlaceholder = new TreeLeaf
         {
-            Caption = "Loaing images...",
+            Caption = "Loading images...",
             IsLoading = true
         };
         private static readonly TreeLeaf s_errorPlaceholder = new TreeLeaf
@@ -84,9 +84,7 @@ namespace GoogleCloudExtension.CloudExplorerSources.Gcr
         }
 
         private IEnumerable<GcrPathStepViewModel> CalculateViewModels(RepoTags tags)
-        {
-            return tags.Children.Select(x => new GcrPathStepViewModel(this, x));
-        }
+            => tags?.Children.Select(x => new GcrPathStepViewModel(this, x)) ?? Enumerable.Empty<GcrPathStepViewModel>();
 
         private DockerRepoDataSource CreateDataSource()
         {

@@ -67,9 +67,13 @@ namespace GoogleCloudExtension.CloudExplorerSources.Gcr
                     {
                         Children.Add(new GcrPathStepViewModel(_owner, child));
                     }
-                    foreach (var tag in _tags.Tags)
+                    foreach (var entry in _tags.Manifest)
                     {
-                        Children.Add(new GcrImageViewModel(_owner, tag));
+                        Children.Add(new GcrImageViewModel(
+                            _owner,
+                            name: Caption,
+                            hash: entry.Key,
+                            image: entry.Value));
                     }
                 }
                 if (Children.Count == 0)

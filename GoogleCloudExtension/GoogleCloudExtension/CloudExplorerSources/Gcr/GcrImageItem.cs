@@ -1,18 +1,23 @@
-﻿using GoogleCloudExtension.GCloud.Models;
+﻿using GoogleCloudExtension.DataSources.Docker;
+using GoogleCloudExtension.GCloud.Models;
 using GoogleCloudExtension.Utils;
 
 namespace GoogleCloudExtension.CloudExplorerSources.Gcr
 {
     public  class GcrImageItem : PropertyWindowItemBase
     {
-        private GcrImage _image;
+        private readonly string _hash;
+        private readonly RepoImage _image;
 
-        public GcrImageItem(GcrImage image)
-            : base(className: "GCR Image", componentName: image.Name)
+        public GcrImageItem(string hash, RepoImage image)
+            : base(className: "Docker image", componentName: hash)
         {
+            _hash = hash;
             _image = image;
         }
 
-        public string Name => _image.Name;
+        public string Size => StringFormatUtils.FormatByteSize(_image.Size);
+
+        public string Hash => _hash;
     }
 }
