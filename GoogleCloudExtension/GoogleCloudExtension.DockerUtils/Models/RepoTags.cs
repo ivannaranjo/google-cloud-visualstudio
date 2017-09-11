@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GoogleCloudExtension.DataSources.Docker
+namespace GoogleCloudExtension.DockerUtils.Models
 {
     public class RepoTags
     {

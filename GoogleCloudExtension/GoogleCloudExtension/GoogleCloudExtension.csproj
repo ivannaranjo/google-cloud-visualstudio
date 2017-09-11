@@ -1164,6 +1164,10 @@
       <Project>{92c6e0d0-41d8-4ecc-87e1-ae72fca891fc}</Project>
       <Name>GoogleCloudExtension.Deployment</Name>
     </ProjectReference>
+    <ProjectReference Include="..\GoogleCloudExtension.DockerUtils\GoogleCloudExtension.DockerUtils.csproj">
+      <Project>{72bb85cf-4e08-4d77-9893-03da5780f966}</Project>
+      <Name>GoogleCloudExtension.DockerUtils</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GoogleCloudExtension.GCloud\GoogleCloudExtension.GCloud.csproj">
       <Project>{95efac7e-4f6e-46f0-bcc8-90ee1487e1e1}</Project>
       <Name>GoogleCloudExtension.GCloud</Name>

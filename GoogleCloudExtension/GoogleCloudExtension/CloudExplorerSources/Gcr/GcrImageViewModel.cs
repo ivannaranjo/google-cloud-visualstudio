@@ -1,5 +1,6 @@
 ﻿using GoogleCloudExtension.CloudExplorer;
-using GoogleCloudExtension.DataSources.Docker;
+using GoogleCloudExtension.DockerUtils;
+using GoogleCloudExtension.DockerUtils.Models;
 using GoogleCloudExtension.Utils;
 using System;
 using System.Collections.Generic;

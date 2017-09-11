@@ -1,7 +1,8 @@
 ﻿using GoogleCloudExtension.Accounts;
 using GoogleCloudExtension.CloudExplorer;
 using GoogleCloudExtension.DataSources;
-using GoogleCloudExtension.DataSources.Docker;
+using GoogleCloudExtension.DockerUtils;
+using GoogleCloudExtension.DockerUtils.Models;
 using GoogleCloudExtension.GCloud;
 using GoogleCloudExtension.GCloud.Models;
 using System;

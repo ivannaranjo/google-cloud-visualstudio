@@ -1,5 +1,5 @@
 ﻿using Google.Apis.Auth.OAuth2;
-using GoogleCloudExtension.DataSources.Docker;
+using GoogleCloudExtension.DockerUtils.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GoogleCloudExtension.DataSources
+namespace GoogleCloudExtension.DockerUtils
 {
     public class DockerRepoDataSource
     {

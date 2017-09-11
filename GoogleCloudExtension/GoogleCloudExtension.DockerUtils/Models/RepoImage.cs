@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace GoogleCloudExtension.DataSources.Docker
+namespace GoogleCloudExtension.DockerUtils.Models
 {
     public class RepoImage
     {
