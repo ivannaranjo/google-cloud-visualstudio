@@ -3,7 +3,6 @@ using GoogleCloudExtension.DockerUtils.Models;
 using GoogleCloudExtension.Utils;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,7 +10,7 @@ using System.Windows.Media;
 
 namespace GoogleCloudExtension.CloudExplorerSources.Gcr
 {
-    public class GcrPathStepViewModel : TreeHierarchy
+    public class GcrRepoViewModel : TreeHierarchy
     {
         private const string IconPathStepPath = "CloudExplorerSources/Gae/Resources/service_icon.png";
 
@@ -33,18 +32,20 @@ namespace GoogleCloudExtension.CloudExplorerSources.Gcr
             IsWarning = true
         };
 
+        public string RepoName { get; }
+
         private readonly GcrSourceRootViewModel _owner;
-        private readonly GcrRepoViewModel _repo;
         private bool _isLoading = false;
         private bool _isLoaded = false;
         private RepoTags _tags;
-
-        public GcrPathStepViewModel(GcrSourceRootViewModel owner, GcrRepoViewModel repo, string name)
+        
+        public GcrRepoViewModel(GcrSourceRootViewModel owner, string repoName)
         {
             _owner = owner;
-            _repo = repo;
 
-            Caption = name;
+            RepoName = repoName;
+
+            Caption = repoName;
             Icon = s_pathStepIcon.Value;
             Children.Add(s_loadingPlaceholder);
         }
@@ -60,35 +61,37 @@ namespace GoogleCloudExtension.CloudExplorerSources.Gcr
             {
                 _isLoading = true;
 
-                Debug.WriteLine($"Loading GCR children of node {Caption}");
-                _tags = await _owner.DataSource?.GetRepoTagsAsync(_repo.RepoName, Caption);
-                Children.Clear();
-                if (_tags != null)
+                _tags = null;
+                _tags = await _owner.DataSource?.GetRepoTagsAsync(RepoName, "");
+
+                PresentViewModels();
+
+                _isLoaded = true;
+            }
+            finally
+            {
+                _isLoading = false; 
+            }
+        }
+
+        private void PresentViewModels()
+        {
+            Children.Clear();
+            if (_tags != null)
+            {
+                var viewModels = CalculateViewModels(_tags);
+                foreach (var model in viewModels)
                 {
-                    foreach (var child in _tags.Children)
-                    {
-                        Children.Add(new GcrPathStepViewModel(_owner,_repo,  child));
-                    }
-                    foreach (var entry in _tags.Manifest.OrderByDescending(x => x.Value.Uploaded))
-                    {
-                        Children.Add(new GcrImageViewModel(
-                            _owner,
-                            _repo,
-                            name: Caption,
-                            hash: entry.Key,
-                            image: entry.Value));
-                    }
+                    Children.Add(model);
                 }
                 if (Children.Count == 0)
                 {
                     Children.Add(s_noItemsPlaceholder);
                 }
-                _isLoaded = true;
-            }
-            finally
-            {
-                _isLoading = false;
             }
         }
+
+        private IEnumerable<GcrPathStepViewModel> CalculateViewModels(RepoTags tags)
+            => tags?.Children.Select(x => new GcrPathStepViewModel(_owner, this, x)) ?? Enumerable.Empty<GcrPathStepViewModel>();
     }
 }

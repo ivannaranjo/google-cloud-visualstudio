@@ -16,6 +16,14 @@ namespace GoogleCloudExtension.CloudExplorerSources.Gcr
 {
     public class GcrSourceRootViewModel : SourceRootViewModelBase
     {
+        private static readonly string[] s_repoNames = new string[]
+        {
+            "gcr.io",
+            "us.gcr.io",
+            "eu.gcr.io",
+            "asia.gcr.io",
+        };
+
         private static readonly TreeLeaf s_loadingPlaceholder = new TreeLeaf
         {
             Caption = "Loading images...",
@@ -32,7 +40,6 @@ namespace GoogleCloudExtension.CloudExplorerSources.Gcr
             IsWarning = true
         };
 
-        private RepoTags _rootTags;
         private Lazy<DockerRepoDataSource> _dataSource;
 
         public DockerRepoDataSource DataSource => _dataSource.Value;
@@ -59,33 +66,19 @@ namespace GoogleCloudExtension.CloudExplorerSources.Gcr
         }
 
 
-        protected override async Task LoadDataOverride()
-        {
-            try
-            {
-                _rootTags = null;
-                _rootTags = await _dataSource.Value.GetRepoTagsAsync("");
-
-                PresentViewModels();
-            }
-            catch (GCloudException ex)
-            {
-                throw new CloudExplorerSourceException(ex.Message, ex);
-            }
-        }
-
-        private void PresentViewModels()
+        protected override Task LoadDataOverride()
         {
             Children.Clear();
-            var viewModels = CalculateViewModels(_rootTags);
-            foreach (var model in viewModels)
+            foreach (var repo in s_repoNames.Select(x => new GcrRepoViewModel(this, x)))
             {
-                Children.Add(model);
+                Children.Add(repo);
             }
-        }
 
-        private IEnumerable<GcrPathStepViewModel> CalculateViewModels(RepoTags tags)
-            => tags?.Children.Select(x => new GcrPathStepViewModel(this, x)) ?? Enumerable.Empty<GcrPathStepViewModel>();
+            // TODO: Better way of doing this.
+            var ts = new TaskCompletionSource<bool>();
+            ts.SetResult(false);
+            return ts.Task;
+        }
 
         private DockerRepoDataSource CreateDataSource()
         {

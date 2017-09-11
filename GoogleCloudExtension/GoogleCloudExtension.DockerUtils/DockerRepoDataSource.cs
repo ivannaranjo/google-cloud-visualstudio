@@ -12,8 +12,6 @@ namespace GoogleCloudExtension.DockerUtils
 {
     public class DockerRepoDataSource
     {
-        private const string BaseUrl = "https://gcr.io/v2";
-
         private readonly string _projectId;
         private readonly GoogleCredential _credentials;
         private readonly HttpClient _client;
@@ -26,10 +24,10 @@ namespace GoogleCloudExtension.DockerUtils
             _client = new HttpClient();
         }
 
-        public async Task<RepoTags> GetRepoTagsAsync(string root)
+        public async Task<RepoTags> GetRepoTagsAsync(string repo, string root)
         {
             var name = GetFullName(root);
-            var url = GetListTagsUrl(name);
+            var url = GetListTagsUrl(repo: repo, name: name);
             var userCredentials = await GetUserCredentialsAsync();
 
             using (var request = new HttpRequestMessage { Method = HttpMethod.Get, RequestUri = new Uri(url) })
@@ -43,7 +41,7 @@ namespace GoogleCloudExtension.DockerUtils
             }
         }
 
-        public string GetFullPath(string name, string hash) => $"gcr.io/{_projectId}/{name}@{hash}";
+        public string GetFullPath(string repo, string name, string hash) => $"{repo}/{_projectId}/{name}@{hash}";
 
         private async Task<string> GetUserCredentialsAsync()
         {
@@ -53,9 +51,9 @@ namespace GoogleCloudExtension.DockerUtils
             return Convert.ToBase64String(credentialsBytes);
         }
 
-        private string GetListTagsUrl(string name)
+        private string GetListTagsUrl(string repo, string name)
         {
-            return $"{BaseUrl}/{name}/tags/list";
+            return $"https://{repo}/v2/{name}/tags/list";
         }
 
         private string GetFullName(string root)

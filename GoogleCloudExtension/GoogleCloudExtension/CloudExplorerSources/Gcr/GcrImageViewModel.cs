@@ -18,17 +18,19 @@ namespace GoogleCloudExtension.CloudExplorerSources.Gcr
         private static readonly Lazy<ImageSource> s_imageIcon = new Lazy<ImageSource>(() => ResourceUtils.LoadImage(IconImagePath));
 
         private readonly GcrSourceRootViewModel _owner;
+        private readonly GcrRepoViewModel _repo;
         private readonly RepoImage _image;
         private readonly string _hash;
         private readonly string _fullPath;
 
-        public GcrImageViewModel(GcrSourceRootViewModel owner, string name, string hash, RepoImage image)
+        public GcrImageViewModel(GcrSourceRootViewModel owner, GcrRepoViewModel repo, string name, string hash, RepoImage image)
         {
             _owner = owner;
+            _repo = repo;
             _image = image;
             _hash = hash;
 
-            _fullPath = owner.DataSource.GetFullPath(name, hash);
+            _fullPath = owner.DataSource.GetFullPath(repo: _repo.RepoName, name: name, hash: hash);
 
             Caption = String.Join(", ", image.Tags);
             Icon = s_imageIcon.Value;
