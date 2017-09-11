@@ -66,18 +66,30 @@ namespace GoogleCloudExtension.CloudExplorerSources.Gcr
         }
 
 
-        protected override Task LoadDataOverride()
+        protected override async Task LoadDataOverride()
         {
             Children.Clear();
-            foreach (var repo in s_repoNames.Select(x => new GcrRepoViewModel(this, x)))
-            {
-                Children.Add(repo);
-            }
+            Children.Add(s_loadingPlaceholder);
 
-            // TODO: Better way of doing this.
-            var ts = new TaskCompletionSource<bool>();
-            ts.SetResult(false);
-            return ts.Task;
+            var repoTasks = s_repoNames.Select(async (x) =>
+            {
+                return new Tuple<string, RepoTags>(x, await _dataSource.Value.GetRepoTagsAsync(x, ""));
+            });
+            var repoTags = await Task.WhenAll(repoTasks);
+
+            Children.Clear();
+            foreach (var entry in repoTags)
+            {
+                var tags = entry.Item2;
+                if (tags.Children.Count > 0)
+                {
+                    Children.Add(new GcrRepoViewModel(this, entry.Item1, tags));
+                }
+            }
+            if (Children.Count == 0)
+            {
+                Children.Add(s_noItemsPlacehoder);
+            }
         }
 
         private DockerRepoDataSource CreateDataSource()

@@ -35,59 +35,26 @@ namespace GoogleCloudExtension.CloudExplorerSources.Gcr
         public string RepoName { get; }
 
         private readonly GcrSourceRootViewModel _owner;
-        private bool _isLoading = false;
-        private bool _isLoaded = false;
-        private RepoTags _tags;
-        
-        public GcrRepoViewModel(GcrSourceRootViewModel owner, string repoName)
+        private readonly RepoTags _tags;
+
+        public GcrRepoViewModel(GcrSourceRootViewModel owner, string repoName, RepoTags tags)
         {
             _owner = owner;
+            _tags = tags;
 
             RepoName = repoName;
 
             Caption = repoName;
             Icon = s_pathStepIcon.Value;
-            Children.Add(s_loadingPlaceholder);
-        }
 
-        protected override async void OnIsExpandedChanged(bool newValue)
-        {
-            if (!newValue || _isLoading || _isLoaded)
+            var viewModels = CalculateViewModels(_tags);
+            foreach (var model in viewModels)
             {
-                return;
+                Children.Add(model);
             }
-
-            try
+            if (Children.Count == 0)
             {
-                _isLoading = true;
-
-                _tags = null;
-                _tags = await _owner.DataSource?.GetRepoTagsAsync(RepoName, "");
-
-                PresentViewModels();
-
-                _isLoaded = true;
-            }
-            finally
-            {
-                _isLoading = false; 
-            }
-        }
-
-        private void PresentViewModels()
-        {
-            Children.Clear();
-            if (_tags != null)
-            {
-                var viewModels = CalculateViewModels(_tags);
-                foreach (var model in viewModels)
-                {
-                    Children.Add(model);
-                }
-                if (Children.Count == 0)
-                {
-                    Children.Add(s_noItemsPlaceholder);
-                }
+                Children.Add(s_noItemsPlaceholder);
             }
         }
 
