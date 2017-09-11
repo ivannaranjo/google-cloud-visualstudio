@@ -35,14 +35,16 @@ namespace GoogleCloudExtension.CloudExplorerSources.Gcr
 
         private readonly GcrSourceRootViewModel _owner;
         private readonly GcrRepoViewModel _repo;
+        private readonly string _path;
         private bool _isLoading = false;
         private bool _isLoaded = false;
         private RepoTags _tags;
 
-        public GcrPathStepViewModel(GcrSourceRootViewModel owner, GcrRepoViewModel repo, string name)
+        public GcrPathStepViewModel(GcrSourceRootViewModel owner, GcrRepoViewModel repo, string name, string path)
         {
             _owner = owner;
             _repo = repo;
+            _path = path;
 
             Caption = name;
             Icon = s_pathStepIcon.Value;
@@ -60,14 +62,15 @@ namespace GoogleCloudExtension.CloudExplorerSources.Gcr
             {
                 _isLoading = true;
 
-                Debug.WriteLine($"Loading GCR children of node {Caption}");
-                _tags = await _owner.DataSource?.GetRepoTagsAsync(_repo.RepoName, Caption);
+                Debug.WriteLine($"Loading GCR children of node {_path}");
+                _tags = await _owner.DataSource?.GetRepoTagsAsync(_repo.RepoName, _path);
                 Children.Clear();
                 if (_tags != null)
                 {
                     foreach (var child in _tags.Children)
                     {
-                        Children.Add(new GcrPathStepViewModel(_owner,_repo,  child));
+                        var newPath = $"{_path}/{child}";
+                        Children.Add(new GcrPathStepViewModel(_owner, _repo, child, newPath));
                     }
                     foreach (var entry in _tags.Manifest.OrderByDescending(x => x.Value.Uploaded))
                     {

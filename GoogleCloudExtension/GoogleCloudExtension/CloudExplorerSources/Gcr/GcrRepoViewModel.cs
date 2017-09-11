@@ -59,6 +59,6 @@ namespace GoogleCloudExtension.CloudExplorerSources.Gcr
         }
 
         private IEnumerable<GcrPathStepViewModel> CalculateViewModels(RepoTags tags)
-            => tags?.Children.Select(x => new GcrPathStepViewModel(_owner, this, x)) ?? Enumerable.Empty<GcrPathStepViewModel>();
+            => tags?.Children.Select(x => new GcrPathStepViewModel(_owner, this, x, x)) ?? Enumerable.Empty<GcrPathStepViewModel>();
     }
 }
