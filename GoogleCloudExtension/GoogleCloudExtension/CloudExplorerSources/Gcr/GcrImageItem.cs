@@ -12,7 +12,7 @@ namespace GoogleCloudExtension.CloudExplorerSources.Gcr
         private readonly RepoImage _image;
 
         public GcrImageItem(string hash, string fullPath, RepoImage image)
-            : base(className: "Docker image", componentName: hash)
+            : base(className: "Docker image", componentName: string.Join(",", image.Tags))
         {
             _hash = hash;
             _fullPath = fullPath;
@@ -24,5 +24,9 @@ namespace GoogleCloudExtension.CloudExplorerSources.Gcr
         public string Hash => _hash;
 
         public string FullPath => _fullPath;
+
+        public string Created => _image.GetCreatedDate().ToString();
+
+        public string Uploaded => _image.GetUploadedDate().ToString();
     }
 }

@@ -72,6 +72,7 @@
   <ItemGroup>
     <Compile Include="DockerRepoDataSource.cs" />
     <Compile Include="Models\RepoImage.cs" />
+    <Compile Include="Models\RepoImageExtensions.cs" />
     <Compile Include="Models\RepoTags.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

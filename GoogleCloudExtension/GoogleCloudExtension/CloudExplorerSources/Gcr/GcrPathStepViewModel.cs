@@ -67,7 +67,7 @@ namespace GoogleCloudExtension.CloudExplorerSources.Gcr
                     {
                         Children.Add(new GcrPathStepViewModel(_owner, child));
                     }
-                    foreach (var entry in _tags.Manifest.OrderByDescending(x => x.Value.Updated))
+                    foreach (var entry in _tags.Manifest.OrderByDescending(x => x.Value.Uploaded))
                     {
                         Children.Add(new GcrImageViewModel(
                             _owner,

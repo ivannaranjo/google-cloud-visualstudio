@@ -13,7 +13,7 @@ namespace GoogleCloudExtension.DockerUtils.Models
         public ulong Created { get; set; } 
 
         [JsonProperty("timeUploadedMs")]
-        public ulong Updated { get; set; }
+        public ulong Uploaded { get; set; }
 
         [JsonProperty("imageSizeBytes")]
         public ulong Size { get; set; }
