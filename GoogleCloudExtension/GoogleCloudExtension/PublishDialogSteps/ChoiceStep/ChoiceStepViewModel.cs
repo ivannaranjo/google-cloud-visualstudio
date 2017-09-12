@@ -16,6 +16,7 @@ using GoogleCloudExtension.Deployment;
 using GoogleCloudExtension.PublishDialog;
 using GoogleCloudExtension.PublishDialogSteps.FlexStep;
 using GoogleCloudExtension.PublishDialogSteps.GceStep;
+using GoogleCloudExtension.PublishDialogSteps.GcrStep;
 using GoogleCloudExtension.PublishDialogSteps.GkeStep;
 using GoogleCloudExtension.Utils;
 using System;
@@ -78,9 +79,18 @@ namespace GoogleCloudExtension.PublishDialogSteps.ChoiceStep
                     Name = Resources.PublishDialogChoiceStepGkeName,
                     Command = new ProtectedCommand(
                         OnGkeChoiceCommand,
-                        canExecuteCommand:IsSupportedNetCoreProject(_dialog.Project)),
+                        canExecuteCommand: IsSupportedNetCoreProject(_dialog.Project)),
                     Icon = s_gkeIcon.Value,
                     ToolTip = Resources.PublishDialogChoiceStepGkeToolTip
+                },
+                new Choice
+                {
+                    Name = "Container Registry",
+                    Command = new ProtectedCommand(
+                        OnGcrChoiceCommand,
+                        canExecuteCommand: IsSupportedNetCoreProject(_dialog.Project)),
+                    Icon = s_gkeIcon.Value,  // TODO: Add GCR icon.
+                    ToolTip = "Build and push a new Docker image to GCR."
                 },
                 new Choice
                 {
@@ -92,6 +102,12 @@ namespace GoogleCloudExtension.PublishDialogSteps.ChoiceStep
                     ToolTip = Resources.PublishDialogChoiceStepGceToolTip
                 },
             };
+        }
+
+        private void OnGcrChoiceCommand()
+        {
+            var nextStep = GcrStepViewModel.CreateStep();
+            _dialog.NavigateToStep(nextStep);
         }
 
         private void OnGkeChoiceCommand()

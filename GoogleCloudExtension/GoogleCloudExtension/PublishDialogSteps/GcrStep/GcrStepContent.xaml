@@ -1,0 +1,43 @@
+﻿<UserControl x:Class="GoogleCloudExtension.PublishDialogSteps.GcrStep.GcrStepContent"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:GoogleCloudExtension.PublishDialogSteps.GcrStep"
+             xmlns:ext="clr-namespace:GoogleCloudExtension"
+             mc:Ignorable="d" 
+             d:DataContext="{d:DesignInstance Type=local:GcrStepViewModel}">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../../Theming/CommonResources.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <StackPanel>
+        <Label Content="_Image Name:"
+               Target="{Binding ElementName=_imageName}"
+               Style="{StaticResource CommonLabelStyle}" />
+        <TextBox x:Name="_imageName"
+                 Text="{Binding ImageName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 Margin="0,0,0,15"
+                 Style="{StaticResource CommonTextBoxStyle}" />
+
+        <Label Content="Image _Tag:"
+               Style="{StaticResource CommonLabelStyle}" />
+        <TextBox x:Name="_imageTag"
+                 Text="{Binding ImageTag, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 Margin="0,0,0,15"
+                 Style="{StaticResource CommonTextBoxStyle}" />
+
+        <Label Content="Image to publish:"
+               Target="{Binding ElementName=_imageFullName}"
+               Style="{StaticResource CommonLabelStyle}" />
+        <TextBox x:Name="_imageFullName"
+                 Text="{Binding ImageFullName, Mode=OneWay}"
+                 IsReadOnly="True"
+                 Style="{StaticResource CommonTextBoxStyle}" />
+    </StackPanel>
+</UserControl>

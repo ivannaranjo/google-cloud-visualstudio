@@ -216,6 +216,10 @@
     <Compile Include="CloudSourceRepositories\CsrGitSetupWarningViewModel.cs" />
     <Compile Include="CloudSourceRepositories\CsrUtils.cs" />
     <Compile Include="CloudSourceRepositories\AsyncRepositories.cs" />
+    <Compile Include="PublishDialogSteps\GcrStep\GcrStepContent.xaml.cs">
+      <DependentUpon>GcrStepContent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PublishDialogSteps\GcrStep\GcrStepViewModel.cs" />
     <Compile Include="TemplateWizards\Dialogs\ProjectIdDialog\IPickProjectIdWindow.cs" />
     <Compile Include="Utils\DataSourceFactories.cs" />
     <Compile Include="CloudExplorer\DisabledApiWarning.cs" />
@@ -1024,6 +1028,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PublishDialogSteps\GceStep\GceStepContent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PublishDialogSteps\GcrStep\GcrStepContent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
