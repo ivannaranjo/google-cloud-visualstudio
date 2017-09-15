@@ -34,11 +34,8 @@ namespace GoogleCloudExtension.Deployment
 
             using (var cleanup = new Disposable(() => CommonUtils.Cleanup(stageDirectory)))
             {
-                var appRootPath = Path.Combine(stageDirectory, "app");
-                var buildFilePath = Path.Combine(stageDirectory, "cloudbuild.yaml");
-
                 if (!await ProgressHelper.UpdateProgress(
-                        NetCoreAppUtils.CreateAppBundleAsync(project, appRootPath, toolsPathProvider, outputAction),
+                        NetCoreAppUtils.CreateAppBundleAsync(project, stageDirectory, toolsPathProvider, outputAction),
                         progress,
                         from: 0.1, to: 0.3))
                 {
@@ -46,15 +43,18 @@ namespace GoogleCloudExtension.Deployment
                     return false;
                 }
 
-                NetCoreAppUtils.CopyOrCreateDockerfile(project, appRootPath);
-                var image = CloudBuilderUtils.CreateBuildFile(
+                NetCoreAppUtils.CopyOrCreateDockerfile(project, stageDirectory);
+                var imageTag = CloudBuilderUtils.GetImageTag(
                     project: options.GCloudContext.ProjectId,
                     imageName: options.ImageName,
-                    imageVersion: options.ImageTag,
-                    buildFilePath: buildFilePath);
+                    imageVersion: options.ImageTag);
 
                 if (!await ProgressHelper.UpdateProgress(
-                    GCloudWrapper.BuildContainerAsync(buildFilePath, appRootPath, outputAction, options.GCloudContext),
+                    GCloudWrapper.BuildContainerAsync(
+                        imageTag: imageTag,
+                        contentsPath: stageDirectory,
+                        outputAction: outputAction,
+                        context: options.GCloudContext),
                     progress,
                     from: 0.4, to: 1.0))
                 {
