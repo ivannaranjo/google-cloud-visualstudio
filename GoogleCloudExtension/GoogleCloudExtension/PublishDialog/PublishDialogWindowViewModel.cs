@@ -30,7 +30,7 @@ namespace GoogleCloudExtension.PublishDialog
     public class PublishDialogWindowViewModel : ViewModelBase, IPublishDialog, INotifyDataErrorInfo
     {
         private readonly PublishDialogWindow _owner;
-        private readonly IParsedProject _project;
+        private readonly PublishDialogSource _source;
         private readonly Stack<IPublishDialogStep> _stack = new Stack<IPublishDialogStep>();
         private FrameworkElement _content;
         private bool _isReady = true;
@@ -73,10 +73,10 @@ namespace GoogleCloudExtension.PublishDialog
         /// </summary>
         private IPublishDialogStep CurrentStep => _stack.Peek();
 
-        public PublishDialogWindowViewModel(IParsedProject project, IPublishDialogStep initialStep, PublishDialogWindow owner)
+        public PublishDialogWindowViewModel(PublishDialogSource source, IPublishDialogStep initialStep, PublishDialogWindow owner)
         {
             _owner = owner;
-            _project = project;
+            _source = source;
 
             PrevCommand = new ProtectedCommand(OnPrevCommand);
             NextCommand = new ProtectedCommand(OnNextCommand);
@@ -187,7 +187,9 @@ namespace GoogleCloudExtension.PublishDialog
             }
         }
 
-        IParsedProject IPublishDialog.Project => _project;
+        IParsedProject IPublishDialog.Project => _source.Project;
+
+        string IPublishDialog.ImageTag => _source.ImageTag;
 
         void IPublishDialog.NavigateToStep(IPublishDialogStep step)
         {

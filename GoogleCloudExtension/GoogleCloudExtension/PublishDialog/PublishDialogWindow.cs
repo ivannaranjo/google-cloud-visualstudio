@@ -14,6 +14,7 @@
 
 using GoogleCloudExtension.Deployment;
 using GoogleCloudExtension.PublishDialogSteps.ChoiceStep;
+using GoogleCloudExtension.PublishDialogSteps.GcrChoiceStep;
 using GoogleCloudExtension.Theming;
 using System;
 
@@ -27,14 +28,18 @@ namespace GoogleCloudExtension.PublishDialog
         private PublishDialogWindowViewModel ViewModel { get; }
 
         private PublishDialogWindow(IParsedProject project) :
-            this(project, ChoiceStepViewModel.CreateStep())
-            
+            this(new PublishDialogSource(project), ChoiceStepViewModel.CreateStep())
+
         { }
 
-        private PublishDialogWindow(IParsedProject project, IPublishDialogStep initialStep) :
-            base(String.Format(GoogleCloudExtension.Resources.PublishDialogCaption, project.Name))
+        private PublishDialogWindow(string imageTag) :
+            this(new PublishDialogSource(imageTag), GcrChoiceStepViewModel.CreateStep())
+        { }
+
+        private PublishDialogWindow(PublishDialogSource source, IPublishDialogStep initialStep) :
+            base(String.Format(GoogleCloudExtension.Resources.PublishDialogCaption, source.DisplayName))
         {
-            ViewModel = new PublishDialogWindowViewModel(project, initialStep, this);
+            ViewModel = new PublishDialogWindowViewModel(source, initialStep, this);
             Content = new PublishDialogWindowContent { DataContext = ViewModel };
         }
 
@@ -45,6 +50,12 @@ namespace GoogleCloudExtension.PublishDialog
         public static void PromptUser(IParsedProject project)
         {
             var dialog = new PublishDialogWindow(project);
+            dialog.ShowModal();
+        }
+
+        public static void PromptUser(string imageTag)
+        {
+            var dialog = new PublishDialogWindow(imageTag);
             dialog.ShowModal();
         }
 

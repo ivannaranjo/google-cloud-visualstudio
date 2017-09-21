@@ -31,6 +31,8 @@ namespace GoogleCloudExtension.PublishDialog
         /// </summary>
         IParsedProject Project { get; }
 
+        string ImageTag { get; }
+
         /// <summary>
         /// This method pushes the given <seealso cref="IPublishDialogStep"/> to the navigation stack and sets the step
         /// as the current displayed step in the dialog.
