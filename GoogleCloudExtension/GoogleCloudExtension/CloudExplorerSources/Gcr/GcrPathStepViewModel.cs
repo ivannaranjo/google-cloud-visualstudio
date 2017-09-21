@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace GoogleCloudExtension.CloudExplorerSources.Gcr
@@ -49,6 +50,8 @@ namespace GoogleCloudExtension.CloudExplorerSources.Gcr
             Caption = name;
             Icon = s_pathStepIcon.Value;
             Children.Add(s_loadingPlaceholder);
+
+            ContextMenu = new ContextMenu();
         }
 
         protected override async void OnIsExpandedChanged(bool newValue)

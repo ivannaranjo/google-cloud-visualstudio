@@ -1,12 +1,14 @@
 ﻿using GoogleCloudExtension.CloudExplorer;
 using GoogleCloudExtension.DockerUtils;
 using GoogleCloudExtension.DockerUtils.Models;
+using GoogleCloudExtension.PublishDialog;
 using GoogleCloudExtension.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace GoogleCloudExtension.CloudExplorerSources.Gcr
@@ -34,6 +36,17 @@ namespace GoogleCloudExtension.CloudExplorerSources.Gcr
 
             Caption = String.Join(", ", image.Tags);
             Icon = s_imageIcon.Value;
+
+            var menuItems = new List<MenuItem>
+            {
+                new MenuItem { Header = "Publish...", Command = new ProtectedCommand(OnPublishCommand) },
+            };
+            ContextMenu = new ContextMenu { ItemsSource = menuItems };
+        }
+
+        private void OnPublishCommand()
+        {
+            PublishDialogWindow.PromptUser(_fullPath);
         }
 
         #region ICloudExplorerItemSource

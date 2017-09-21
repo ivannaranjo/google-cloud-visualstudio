@@ -11,6 +11,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace GoogleCloudExtension.CloudExplorerSources.Gcr
 {
@@ -57,6 +58,8 @@ namespace GoogleCloudExtension.CloudExplorerSources.Gcr
             base.Initialize(context);
 
             InvalidateProjectOrAccount();
+
+            ContextMenu = new ContextMenu();
         }
 
         public override void InvalidateProjectOrAccount()

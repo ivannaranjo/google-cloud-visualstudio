@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace GoogleCloudExtension.CloudExplorerSources.Gcr
@@ -56,6 +57,8 @@ namespace GoogleCloudExtension.CloudExplorerSources.Gcr
             {
                 Children.Add(s_noItemsPlaceholder);
             }
+
+            ContextMenu = new ContextMenu();
         }
 
         private IEnumerable<GcrPathStepViewModel> CalculateViewModels(RepoTags tags)
