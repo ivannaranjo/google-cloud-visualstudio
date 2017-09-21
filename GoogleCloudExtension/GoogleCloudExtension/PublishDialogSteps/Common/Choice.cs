@@ -16,7 +16,7 @@ using GoogleCloudExtension.Utils;
 using System.Windows.Input;
 using System.Windows.Media;
 
-namespace GoogleCloudExtension.PublishDialogSteps.ChoiceStep
+namespace GoogleCloudExtension.PublishDialogSteps.Common
 {
     /// <summary>
     /// This class contains all of the data for a choice of target in the <seealso cref="ChoiceStepViewModel"/> step.
