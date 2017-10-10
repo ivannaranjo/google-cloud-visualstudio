@@ -17,11 +17,14 @@ using GoogleCloudExtension.Accounts;
 using GoogleCloudExtension.CloudExplorerSources.CloudSQL;
 using GoogleCloudExtension.CloudExplorerSources.Gae;
 using GoogleCloudExtension.CloudExplorerSources.Gce;
+using GoogleCloudExtension.CloudExplorerSources.Gcr;
 using GoogleCloudExtension.CloudExplorerSources.Gcs;
+using GoogleCloudExtension.CloudExplorerSources.Gke;
 using GoogleCloudExtension.CloudExplorerSources.PubSub;
 using GoogleCloudExtension.DataSources;
 using GoogleCloudExtension.ManageAccounts;
 using GoogleCloudExtension.Utils;
+using GoogleCloudExtension.Utils.Async;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -30,9 +33,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Media;
-using GoogleCloudExtension.Utils.Async;
-using GoogleCloudExtension.CloudExplorerSources.Gke;
-using GoogleCloudExtension.CloudExplorerSources.Gcr;
 
 namespace GoogleCloudExtension.CloudExplorer
 {

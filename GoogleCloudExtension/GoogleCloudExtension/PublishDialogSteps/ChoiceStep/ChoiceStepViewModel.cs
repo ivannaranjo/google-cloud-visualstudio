@@ -71,7 +71,7 @@ namespace GoogleCloudExtension.PublishDialogSteps.ChoiceStep
                     Name = Resources.PublishDialogChoiceStepAppEngineFlexName,
                     Command = new ProtectedCommand(
                         OnAppEngineChoiceCommand,
-                        canExecuteCommand: IsSupportedNetCoreProject(_dialog.Project)),
+                        canExecuteCommand: _dialog.Project.IsAspNetCoreProject()),
                     Icon = s_appEngineIcon.Value,
                     ToolTip = Resources.PublishDialogChoiceStepAppEngineToolTip
                 },
@@ -80,7 +80,7 @@ namespace GoogleCloudExtension.PublishDialogSteps.ChoiceStep
                     Name = Resources.PublishDialogChoiceStepGkeName,
                     Command = new ProtectedCommand(
                         OnGkeChoiceCommand,
-                        canExecuteCommand: IsSupportedNetCoreProject(_dialog.Project)),
+                        canExecuteCommand: _dialog.Project.IsAspNetCoreProject()),
                     Icon = s_gkeIcon.Value,
                     ToolTip = Resources.PublishDialogChoiceStepGkeToolTip
                 },
@@ -89,7 +89,7 @@ namespace GoogleCloudExtension.PublishDialogSteps.ChoiceStep
                     Name = "Container Registry",
                     Command = new ProtectedCommand(
                         OnGcrChoiceCommand,
-                        canExecuteCommand: IsSupportedNetCoreProject(_dialog.Project)),
+                        canExecuteCommand: _dialog.Project.IsAspNetCoreProject()),
                     Icon = s_gkeIcon.Value,  // TODO: Add GCR icon.
                     ToolTip = "Build and push a new Docker image to GCR."
                 },
@@ -150,10 +150,5 @@ namespace GoogleCloudExtension.PublishDialogSteps.ChoiceStep
 
             return viewModel;
         }
-
-        private static bool IsSupportedNetCoreProject(IParsedProject project)
-            => project.ProjectType == KnownProjectTypes.NetCoreWebApplication1_0 ||
-               project.ProjectType == KnownProjectTypes.NetCoreWebApplication1_1 ||
-               project.ProjectType == KnownProjectTypes.NetCoreWebApplication2_0;
     }
 }

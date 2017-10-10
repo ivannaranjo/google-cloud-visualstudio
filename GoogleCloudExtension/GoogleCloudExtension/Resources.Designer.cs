@@ -5623,7 +5623,7 @@ namespace GoogleCloudExtension {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Account.
+        ///   Looks up a localized string similar to Account:.
         /// </summary>
         public static string TitleBarAccountLabel {
             get {
@@ -5632,7 +5632,7 @@ namespace GoogleCloudExtension {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Project.
+        ///   Looks up a localized string similar to Project:.
         /// </summary>
         public static string TitleBarProjectIdLabel {
             get {
@@ -6037,7 +6037,7 @@ namespace GoogleCloudExtension {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Select a Google Cloud project:.
+        ///   Looks up a localized string similar to Select a Google Cloud Platform project:.
         /// </summary>
         public static string WizardPickProjectIdDescription {
             get {
@@ -6078,15 +6078,6 @@ namespace GoogleCloudExtension {
         public static string WizardPickProjectIdNoAccountMessage {
             get {
                 return ResourceManager.GetString("WizardPickProjectIdNoAccountMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Select the Google Cloud Platform project that will run this project..
-        /// </summary>
-        public static string WizardPickProjectIdTitle {
-            get {
-                return ResourceManager.GetString("WizardPickProjectIdTitle", resourceCulture);
             }
         }
         
@@ -6145,7 +6136,7 @@ namespace GoogleCloudExtension {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to _WebAPI.
+        ///   Looks up a localized string similar to _Web API.
         /// </summary>
         public static string WizardTemplateChooserWebApiLabel {
             get {

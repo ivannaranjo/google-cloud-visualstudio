@@ -25,12 +25,11 @@ namespace GoogleCloudExtension.TemplateWizards.Dialogs.TemplateChooserDialog
     /// </summary>
     public class TemplateChooserViewModel : ViewModelBase
     {
-
         private string _gcpProjectId;
         private FrameworkType _selectedFramework;
         private AspNetVersion _selectedVersion;
         private IList<AspNetVersion> _availableVersions;
-        private AppType _appType = AppType.None;
+        private AppType _appType = AppType.Mvc;
 
         /// <summary>
         /// The id of a google cloud project.
@@ -50,8 +49,7 @@ namespace GoogleCloudExtension.TemplateWizards.Dialogs.TemplateChooserDialog
             set
             {
                 SetValueAndRaise(ref _selectedFramework, value);
-                AvailableVersions = AspNetVersion.GetAvailableVersions(
-                    GoogleCloudExtensionPackage.VsVersion, SelectedFramework);
+                AvailableVersions = AspNetVersion.GetAvailableVersions(SelectedFramework);
             }
         }
 
@@ -127,7 +125,7 @@ namespace GoogleCloudExtension.TemplateWizards.Dialogs.TemplateChooserDialog
             private set
             {
                 SetValueAndRaise(ref _appType, value);
-                OkCommand.CanExecuteCommand = _appType != AppType.None;
+                OkCommand.CanExecuteCommand = AppType != AppType.None;
             }
         }
 
@@ -146,6 +144,10 @@ namespace GoogleCloudExtension.TemplateWizards.Dialogs.TemplateChooserDialog
         /// </summary>
         public TemplateChooserViewModelResult Result { get; private set; }
 
+        public bool NetCoreAvailable { get; } = IsNetCoreAvailable();
+
+        private static bool IsNetCoreAvailable() => AspNetVersion.GetAvailableVersions(FrameworkType.NetCore).Any();
+
         /// <param name="closeWindow">The action that will close the dialog.</param>
         /// <param name="promptPickProject">The function that will prompt the user to pick an existing project.</param>
         public TemplateChooserViewModel(Action closeWindow, Func<string> promptPickProject)
@@ -156,10 +158,9 @@ namespace GoogleCloudExtension.TemplateWizards.Dialogs.TemplateChooserDialog
                 {
                     Result = new TemplateChooserViewModelResult(this);
                     closeWindow();
-                },
-                false);
+                });
             SelectProjectCommand = new ProtectedCommand(() => GcpProjectId = promptPickProject() ?? GcpProjectId);
-            SelectedFramework = FrameworkType.NetCore;
+            SelectedFramework = NetCoreAvailable ? FrameworkType.NetCore : FrameworkType.NetFramework;
         }
     }
 }
