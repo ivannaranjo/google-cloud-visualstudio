@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\packages\Microsoft.VisualStudio.Sdk.BuildTasks.14.0.14.0.156\build\Microsoft.VisualStudio.Sdk.BuildTasks.14.0.props" Condition="$(VisualStudioVersion) != '15.0' and Exists('..\packages\Microsoft.VisualStudio.Sdk.BuildTasks.14.0.14.0.156\build\Microsoft.VisualStudio.Sdk.BuildTasks.14.0.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
@@ -126,6 +126,14 @@
     <Compile Include="Analytics\Events\StopGceInstanceEvent.cs" />
     <Compile Include="Analytics\Events\UnhandledExceptionEvent.cs" />
     <Compile Include="Analytics\Events\UpgradeEvent.cs" />
+    <Compile Include="ApiManagement\ApiManager.cs" />
+    <Compile Include="ApiManagement\IApiManager.cs" />
+    <Compile Include="ApiManagement\KnownApis.cs" />
+    <Compile Include="AppEngineManagement\AppEngineManagementViewModel.cs" />
+    <Compile Include="AppEngineManagement\AppEngineManagementWindow.cs" />
+    <Compile Include="AppEngineManagement\AppEngineManagementWindowContent.xaml.cs">
+      <DependentUpon>AppEngineManagementWindowContent.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AttachDebuggerDialog\AttachDebuggerContext.cs" />
     <Compile Include="AttachDebuggerDialog\AttachDebuggerSettingsStore.cs" />
     <Compile Include="AttachDebuggerDialog\AttachDebuggerSettings.cs" />
@@ -199,6 +207,10 @@
     <Compile Include="CloudExplorer\ISourceRootViewModelBase.cs" />
     <Compile Include="CloudExplorer\ITreeHierarchy.cs" />
     <Compile Include="CloudExplorer\ITreeNode.cs" />
+    <Compile Include="CloudExplorer\SampleData\EmptyState.cs" />
+    <Compile Include="CloudExplorer\SampleData\LoadingState.cs" />
+    <Compile Include="CloudExplorer\SampleData\SampleDataBase.cs" />
+    <Compile Include="CloudExplorer\SampleData\WithDataState.cs" />
     <Compile Include="CloudSourceRepositories\RepoNameConverter.cs" />
     <Compile Include="CloudSourceRepositories\CsAddRepoWindow.cs" />
     <Compile Include="CloudSourceRepositories\CsrCloneWindow.cs" />
@@ -225,7 +237,12 @@
     </Compile>
     <Compile Include="PublishDialogSteps\GcrStep\GcrStepViewModel.cs" />
     <Compile Include="PublishDialog\PublishDialogSource.cs" />
-    <Compile Include="TemplateWizards\Dialogs\ProjectIdDialog\IPickProjectIdWindow.cs" />
+    <Compile Include="PickProjectDialog\IPickProjectIdWindow.cs" />
+    <Compile Include="PickProjectDialog\SampleData\ErrorState.cs" />
+    <Compile Include="Utils\MockAsyncProperty.cs" />
+    <Compile Include="PickProjectDialog\SampleData\LoadedState.cs" />
+    <Compile Include="PickProjectDialog\SampleData\NeedsAccountState.cs" />
+    <Compile Include="PickProjectDialog\SampleData\LoadingState.cs" />
     <Compile Include="TemplateWizards\Dialogs\TemplateChooserDialog\AppType.cs" />
     <Compile Include="TemplateWizards\Dialogs\TemplateChooserDialog\AspNetVersion.cs" />
     <Compile Include="TemplateWizards\Dialogs\TemplateChooserDialog\FrameworkType.cs" />
@@ -238,6 +255,7 @@
     <Compile Include="TemplateWizards\GoogleProjectTemplateSelectorWizard.cs" />
     <Compile Include="TemplateWizards\GoogleTemplateWizardHelper.cs" />
     <Compile Include="TemplateWizards\ReplacementsKeys.cs" />
+    <Compile Include="Theming\ICloseable.cs" />
     <Compile Include="Utils\DataSourceFactories.cs" />
     <Compile Include="CloudExplorer\DisabledApiWarning.cs" />
     <Compile Include="CloudExplorerSources\Gce\GceGaeInstanceItem.cs" />
@@ -495,9 +513,9 @@
     <Compile Include="StackdriverLogsViewer\TreeViewConverters\LogEntryNode.cs" />
     <Compile Include="StackdriverLogsViewer\TreeViewConverters\ObjectNodeTree.cs" />
     <Compile Include="StackdriverLogsViewer\TreeViewConverters\TypeUtil.cs" />
-    <Compile Include="TemplateWizards\Dialogs\ProjectIdDialog\PickProjectIdViewModel.cs" />
-    <Compile Include="TemplateWizards\Dialogs\ProjectIdDialog\PickProjectIdWindow.cs" />
-    <Compile Include="TemplateWizards\Dialogs\ProjectIdDialog\PickProjectIdWindowContent.xaml.cs">
+    <Compile Include="PickProjectDialog\PickProjectIdViewModel.cs" />
+    <Compile Include="PickProjectDialog\PickProjectIdWindow.cs" />
+    <Compile Include="PickProjectDialog\PickProjectIdWindowContent.xaml.cs">
       <DependentUpon>PickProjectIdWindowContent.xaml</DependentUpon>
     </Compile>
     <Compile Include="TemplateWizards\GoogleProjectTemplateWizard.cs" />
@@ -581,6 +599,7 @@
     <Compile Include="Utils\ViewModelBase.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Theming\Resources\refresh.png" />
     <Resource Include="Theming\Resources\ic_error_red_14px.png" />
     <Resource Include="StackdriverErrorReporting\Resources\back_icon.png" />
     <Resource Include="StackdriverErrorReporting\Resources\back_icon_12.png" />
@@ -771,6 +790,10 @@
       <HintPath>..\packages\Google.Apis.Pubsub.v1.1.29.1.971\lib\net45\Google.Apis.Pubsub.v1.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Google.Apis.ServiceManagement.v1, Version=1.29.1.981, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.ServiceManagement.v1.1.29.1.981\lib\net45\Google.Apis.ServiceManagement.v1.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Google.Apis.SQLAdmin.v1beta4, Version=1.29.1.949, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
       <HintPath>..\packages\Google.Apis.SQLAdmin.v1beta4.1.29.1.949\lib\net45\Google.Apis.SQLAdmin.v1beta4.dll</HintPath>
       <Private>True</Private>
@@ -931,6 +954,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="AddTrafficSplit\AddTrafficSplitWindowContent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AppEngineManagement\AppEngineManagementWindowContent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1142,7 +1169,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="TemplateWizards\Dialogs\ProjectIdDialog\PickProjectIdWindowContent.xaml">
+    <Page Include="PickProjectDialog\PickProjectIdWindowContent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -8,10 +8,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace GoogleCloudExtension {
-    using System;
-    
-    
+namespace GoogleCloudExtension
+{
+
+
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -237,6 +237,69 @@ namespace GoogleCloudExtension {
         public static string AnalyticsPromptTitle {
             get {
                 return ResourceManager.GetString("AnalyticsPromptTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to enable the necessary services..
+        /// </summary>
+        public static string ApiManagerEnableServicesErrorMessage {
+            get {
+                return ResourceManager.GetString("ApiManagerEnableServicesErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enabling the required services..
+        /// </summary>
+        public static string ApiManagerEnableServicesProgressMessage {
+            get {
+                return ResourceManager.GetString("ApiManagerEnableServicesProgressMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable Required Services.
+        /// </summary>
+        public static string ApiManagerEnableServicesTitle {
+            get {
+                return ResourceManager.GetString("ApiManagerEnableServicesTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your app will be served from the selected region. Anyone can use your app, but users closer to the selected region will have lower latency. You can&apos;t change the region for project {0} later..
+        /// </summary>
+        public static string AppEngineManagementAppCreationMessage {
+            get {
+                return ResourceManager.GetString("AppEngineManagementAppCreationMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading regions....
+        /// </summary>
+        public static string AppEngineManagementLoadingRegionsPlaceholder {
+            get {
+                return ResourceManager.GetString("AppEngineManagementLoadingRegionsPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Available _regions:.
+        /// </summary>
+        public static string AppEngineManagementRegionsLabel {
+            get {
+                return ResourceManager.GetString("AppEngineManagementRegionsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select App Engine Region.
+        /// </summary>
+        public static string AppEngineManagementWindowTitle {
+            get {
+                return ResourceManager.GetString("AppEngineManagementWindowTitle", resourceCulture);
             }
         }
         
@@ -637,6 +700,15 @@ namespace GoogleCloudExtension {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The App Engine Admin API is not enabled..
+        /// </summary>
+        public static string CloudExplorerGaeApiNotEnabledCaption {
+            get {
+                return ResourceManager.GetString("CloudExplorerGaeApiNotEnabledCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete Service.
         /// </summary>
         public static string CloudExplorerGaeDeleteService {
@@ -691,6 +763,15 @@ namespace GoogleCloudExtension {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enable the App Engine Admin API.
+        /// </summary>
+        public static string CloudExplorerGaeEnableApiMenuHeader {
+            get {
+                return ResourceManager.GetString("CloudExplorerGaeEnableApiMenuHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Failed to load the list of Google Cloud App Engine services.
         /// </summary>
         public static string CloudExplorerGaeFailedServicesMessage {
@@ -741,6 +822,15 @@ namespace GoogleCloudExtension {
         public static string CloudExplorerGaeMigratingAllTrafficCaption {
             get {
                 return ResourceManager.GetString("CloudExplorerGaeMigratingAllTrafficCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No App Engine app found..
+        /// </summary>
+        public static string CloudExplorerGaeNoAppFoundCaption {
+            get {
+                return ResourceManager.GetString("CloudExplorerGaeNoAppFoundCaption", resourceCulture);
             }
         }
         
@@ -813,6 +903,15 @@ namespace GoogleCloudExtension {
         public static string CloudExplorerGaeServiceOpen {
             get {
                 return ResourceManager.GetString("CloudExplorerGaeServiceOpen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set App Region....
+        /// </summary>
+        public static string CloudExplorerGaeSetAppRegionMenuHeader {
+            get {
+                return ResourceManager.GetString("CloudExplorerGaeSetAppRegionMenuHeader", resourceCulture);
             }
         }
         
@@ -1096,11 +1195,29 @@ namespace GoogleCloudExtension {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The Compute Engine API is not enabled..
+        /// </summary>
+        public static string CloudExplorerGceApiNotEnabledCaption {
+            get {
+                return ResourceManager.GetString("CloudExplorerGceApiNotEnabledCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Attach debugger.
         /// </summary>
         public static string CloudExplorerGceAttachDebuggerMenuHeader {
             get {
                 return ResourceManager.GetString("CloudExplorerGceAttachDebuggerMenuHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable the Compute Engine API.
+        /// </summary>
+        public static string CloudExplorerGceEnableApiMenuHeader {
+            get {
+                return ResourceManager.GetString("CloudExplorerGceEnableApiMenuHeader", resourceCulture);
             }
         }
         
@@ -1672,6 +1789,15 @@ namespace GoogleCloudExtension {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The Cloud Storage API is not enabled..
+        /// </summary>
+        public static string CloudExplorerGcsApiNotEnabledCaption {
+            get {
+                return ResourceManager.GetString("CloudExplorerGcsApiNotEnabledCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bucket Properties.
         /// </summary>
         public static string CloudExplorerGcsBucketCategory {
@@ -1767,6 +1893,15 @@ namespace GoogleCloudExtension {
         public static string CloudExplorerGcsBucketVersioningEnabledDisplayName {
             get {
                 return ResourceManager.GetString("CloudExplorerGcsBucketVersioningEnabledDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable the Cloud Storage API.
+        /// </summary>
+        public static string CloudExplorerGcsEnableApiMenuHeader {
+            get {
+                return ResourceManager.GetString("CloudExplorerGcsEnableApiMenuHeader", resourceCulture);
             }
         }
         
@@ -1906,6 +2041,24 @@ namespace GoogleCloudExtension {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select the GCP project that owns the resources you want browse in the Cloud Explorer..
+        /// </summary>
+        public static string CloudExplorerPickProjectHelpMessage {
+            get {
+                return ResourceManager.GetString("CloudExplorerPickProjectHelpMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Pub/Sub API is not enabled..
+        /// </summary>
+        public static string CloudExplorerPubSubApiNotEnabledCaption {
+            get {
+                return ResourceManager.GetString("CloudExplorerPubSubApiNotEnabledCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete Subscription.
         /// </summary>
         public static string CloudExplorerPubSubDeleteSubscriptionMenuHeader {
@@ -1920,6 +2073,15 @@ namespace GoogleCloudExtension {
         public static string CloudExplorerPubSubDeleteTopicMenuHeader {
             get {
                 return ResourceManager.GetString("CloudExplorerPubSubDeleteTopicMenuHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable the Pub/Sub API.
+        /// </summary>
+        public static string CloudExplorerPubSubEnableApiMenuHeader {
+            get {
+                return ResourceManager.GetString("CloudExplorerPubSubEnableApiMenuHeader", resourceCulture);
             }
         }
         
@@ -2122,6 +2284,24 @@ namespace GoogleCloudExtension {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select _Project....
+        /// </summary>
+        public static string CloudExplorerSelectProjectCaption {
+            get {
+                return ResourceManager.GetString("CloudExplorerSelectProjectCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Cloud SQL API is not enabled..
+        /// </summary>
+        public static string CloudExplorerSqlApiNotEnabledCaption {
+            get {
+                return ResourceManager.GetString("CloudExplorerSqlApiNotEnabledCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Backend Type.
         /// </summary>
         public static string CloudExplorerSqlBackendTypeDisplayName {
@@ -2136,6 +2316,15 @@ namespace GoogleCloudExtension {
         public static string CloudExplorerSqlDatabaseVersionDisplayName {
             get {
                 return ResourceManager.GetString("CloudExplorerSqlDatabaseVersionDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable the Cloud SQL API.
+        /// </summary>
+        public static string CloudExplorerSqlEnableApiMenuHeader {
+            get {
+                return ResourceManager.GetString("CloudExplorerSqlEnableApiMenuHeader", resourceCulture);
             }
         }
         
@@ -2451,6 +2640,24 @@ namespace GoogleCloudExtension {
         public static string CsrDescription {
             get {
                 return ResourceManager.GetString("CsrDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable the service.
+        /// </summary>
+        public static string CsrEnableApiLinkCaption {
+            get {
+                return ResourceManager.GetString("CsrEnableApiLinkCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The selected project needs to be setup to use Cloud Source Repositories. .
+        /// </summary>
+        public static string CsrEnableApiMessage {
+            get {
+                return ResourceManager.GetString("CsrEnableApiMessage", resourceCulture);
             }
         }
         
@@ -3040,6 +3247,24 @@ namespace GoogleCloudExtension {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Setting App Engine region..
+        /// </summary>
+        public static string GaeUtilsSetAppEngineRegionProgressMessage {
+            get {
+                return ResourceManager.GetString("GaeUtilsSetAppEngineRegionProgressMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to App Engine Region.
+        /// </summary>
+        public static string GaeUtilsSetAppEngineRegionProgressTitle {
+            get {
+                return ResourceManager.GetString("GaeUtilsSetAppEngineRegionProgressTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Attach debugger after publishing.
         /// </summary>
         public static string GcePublishAttachDebuggerCaption {
@@ -3162,15 +3387,6 @@ namespace GoogleCloudExtension {
         public static string GcpProjectNameHeader {
             get {
                 return ResourceManager.GetString("GcpProjectNameHeader", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Project Number.
-        /// </summary>
-        public static string GcpProjectNumberHeader {
-            get {
-                return ResourceManager.GetString("GcpProjectNumberHeader", resourceCulture);
             }
         }
         
@@ -3859,7 +4075,7 @@ namespace GoogleCloudExtension {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Deploying {0} to Container Engine.
+        ///   Looks up a localized string similar to Deploying {0} to Kubernetes Engine.
         /// </summary>
         public static string GkePublishDeployingToGkeMessage {
             get {
@@ -3886,7 +4102,7 @@ namespace GoogleCloudExtension {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Failed to deploy {0} to Container Engine.
+        ///   Looks up a localized string similar to Failed to deploy {0} to Kubernetes Engine.
         /// </summary>
         public static string GkePublishDeploymentFailureMessage {
             get {
@@ -3922,7 +4138,7 @@ namespace GoogleCloudExtension {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Deploying to Container Engine.
+        ///   Looks up a localized string similar to Deploying to Kubernetes Engine.
         /// </summary>
         public static string GkePublishDeploymentStatusMessage {
             get {
@@ -3931,7 +4147,7 @@ namespace GoogleCloudExtension {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Project {0} deployed to Container Engine.
+        ///   Looks up a localized string similar to Project {0} deployed to Kubernetes Engine.
         /// </summary>
         public static string GkePublishDeploymentSuccessMessage {
             get {
@@ -4903,6 +5119,60 @@ namespace GoogleCloudExtension {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select a Google Cloud Platform project:.
+        /// </summary>
+        public static string PickProjectIdDescription {
+            get {
+                return ResourceManager.GetString("PickProjectIdDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filter _project:.
+        /// </summary>
+        public static string PickProjectIdFilterProjectCaption {
+            get {
+                return ResourceManager.GetString("PickProjectIdFilterProjectCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading Projects....
+        /// </summary>
+        public static string PickProjectIdLoadingProjects {
+            get {
+                return ResourceManager.GetString("PickProjectIdLoadingProjects", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error loading Projects.
+        /// </summary>
+        public static string PickProjectIdLoadProjectsErrorMessage {
+            get {
+                return ResourceManager.GetString("PickProjectIdLoadProjectsErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To get a list of projects, select an account..
+        /// </summary>
+        public static string PickProjectIdNoAccountMessage {
+            get {
+                return ResourceManager.GetString("PickProjectIdNoAccountMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Refresh the projects list..
+        /// </summary>
+        public static string PickProjectIdRefreshButtonToolTip {
+            get {
+                return ResourceManager.GetString("PickProjectIdRefreshButtonToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} ({1} {2}).
         /// </summary>
         public static string PortManagerDisplayStringFormat {
@@ -5047,7 +5317,7 @@ namespace GoogleCloudExtension {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to C_ontainer Engine.
+        ///   Looks up a localized string similar to _Kubernetes Engine.
         /// </summary>
         public static string PublishDialogChoiceStepGkeName {
             get {
@@ -5056,7 +5326,7 @@ namespace GoogleCloudExtension {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Deploy as a service to Container Engine.
+        ///   Looks up a localized string similar to Deploy as a service to Kubernetes Engine.
         /// </summary>
         public static string PublishDialogChoiceStepGkeToolTip {
             get {
@@ -5074,11 +5344,38 @@ namespace GoogleCloudExtension {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enable the services.
+        /// </summary>
+        public static string PublishDialogEnableApiCaption {
+            get {
+                return ResourceManager.GetString("PublishDialogEnableApiCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The selected GCP project needs the app region to be selected before you can deploy..
+        /// </summary>
+        public static string PublishDialogFlexNeedToSetRegionMessage {
+            get {
+                return ResourceManager.GetString("PublishDialogFlexNeedToSetRegionMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to P_romote version.
         /// </summary>
         public static string PublishDialogFlexPromoteVersionCaption {
             get {
                 return ResourceManager.GetString("PublishDialogFlexPromoteVersionCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select app region.
+        /// </summary>
+        public static string PublishDialogFlexSetAppRegionCaption {
+            get {
+                return ResourceManager.GetString("PublishDialogFlexSetAppRegionCaption", resourceCulture);
             }
         }
         
@@ -5119,11 +5416,29 @@ namespace GoogleCloudExtension {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Google Cloud Project ID:.
+        /// </summary>
+        public static string PublishDialogGcpProjectIdLabel {
+            get {
+                return ResourceManager.GetString("PublishDialogGcpProjectIdLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Publish project to Google Cloud....
         /// </summary>
         public static string PublishDialogGenericMenuHeader {
             get {
                 return ResourceManager.GetString("PublishDialogGenericMenuHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading project data..
+        /// </summary>
+        public static string PublishDialogLoadingProjectMessage {
+            get {
+                return ResourceManager.GetString("PublishDialogLoadingProjectMessage", resourceCulture);
             }
         }
         
@@ -5146,11 +5461,29 @@ namespace GoogleCloudExtension {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select the GCP project where you want to deploy your app..
+        /// </summary>
+        public static string PublishDialogPickProjectHelpMessage {
+            get {
+                return ResourceManager.GetString("PublishDialogPickProjectHelpMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to _Prev.
         /// </summary>
         public static string PublishDialogPrevButtonCaption {
             get {
                 return ResourceManager.GetString("PublishDialogPrevButtonCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not determine if the selected GCP project is ready to deploy, please close the dialog and try again..
+        /// </summary>
+        public static string PublishDialogProjectLoadErrorMessage {
+            get {
+                return ResourceManager.GetString("PublishDialogProjectLoadErrorMessage", resourceCulture);
             }
         }
         
@@ -5164,11 +5497,38 @@ namespace GoogleCloudExtension {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The selected GCP project needs services to be enabled before you can deploy..
+        /// </summary>
+        public static string PublishDialogProjectNeedsApiMessage {
+            get {
+                return ResourceManager.GetString("PublishDialogProjectNeedsApiMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to P_ublish.
         /// </summary>
         public static string PublishDialogPublishButtonCaption {
             get {
                 return ResourceManager.GetString("PublishDialogPublishButtonCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Change Current _Project....
+        /// </summary>
+        public static string PublishDialogSelectGcpProjectButtonLabel {
+            get {
+                return ResourceManager.GetString("PublishDialogSelectGcpProjectButtonLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select Google Cloud Project.
+        /// </summary>
+        public static string PublishDialogSelectGcpProjectTitle {
+            get {
+                return ResourceManager.GetString("PublishDialogSelectGcpProjectTitle", resourceCulture);
             }
         }
         
@@ -5605,6 +5965,15 @@ namespace GoogleCloudExtension {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This project ID will be added to your configuration files and can be changed later..
+        /// </summary>
+        public static string TemplateWizardPickProjectIdHelpText {
+            get {
+                return ResourceManager.GetString("TemplateWizardPickProjectIdHelpText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Choose credentials to use:.
         /// </summary>
         public static string TerminalServerManagerWindowMessage {
@@ -5727,6 +6096,15 @@ namespace GoogleCloudExtension {
         public static string UiDownloadButtonCaption {
             get {
                 return ResourceManager.GetString("UiDownloadButtonCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable.
+        /// </summary>
+        public static string UiEnableButtonCaption {
+            get {
+                return ResourceManager.GetString("UiEnableButtonCaption", resourceCulture);
             }
         }
         
@@ -6028,69 +6406,6 @@ namespace GoogleCloudExtension {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Task Canceled.
-        /// </summary>
-        public static string WizardPickProjectIdCanceledTask {
-            get {
-                return ResourceManager.GetString("WizardPickProjectIdCanceledTask", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Select a Google Cloud Platform project:.
-        /// </summary>
-        public static string WizardPickProjectIdDescription {
-            get {
-                return ResourceManager.GetString("WizardPickProjectIdDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to This project ID will be added to your configuration files and can be changed later..
-        /// </summary>
-        public static string WizardPickProjectIdHelpText {
-            get {
-                return ResourceManager.GetString("WizardPickProjectIdHelpText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Loading Projects....
-        /// </summary>
-        public static string WizardPickProjectIdLoadingProjects {
-            get {
-                return ResourceManager.GetString("WizardPickProjectIdLoadingProjects", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Error loading Projects.
-        /// </summary>
-        public static string WizardPickProjectIdLoadProjectsErrorMessage {
-            get {
-                return ResourceManager.GetString("WizardPickProjectIdLoadProjectsErrorMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to To get a list of projects, select an account..
-        /// </summary>
-        public static string WizardPickProjectIdNoAccountMessage {
-            get {
-                return ResourceManager.GetString("WizardPickProjectIdNoAccountMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Features:.
-        /// </summary>
-        public static string WizardTemplateChooserFeaturesLabel {
-            get {
-                return ResourceManager.GetString("WizardTemplateChooserFeaturesLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to _MVC.
         /// </summary>
         public static string WizardTemplateChooserMvcLabel {
@@ -6100,29 +6415,29 @@ namespace GoogleCloudExtension {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Google Cloud _Project ID:.
+        ///   Looks up a localized string similar to Target _ASP.NET Framework:.
         /// </summary>
-        public static string WizardTemplateChooserProjectIdLabel {
+        public static string WizardTemplateChooserTargetAspFrameworkLabel {
             get {
-                return ResourceManager.GetString("WizardTemplateChooserProjectIdLabel", resourceCulture);
+                return ResourceManager.GetString("WizardTemplateChooserTargetAspFrameworkLabel", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to _Select Project....
+        ///   Looks up a localized string similar to Target ._NET Framework:.
         /// </summary>
-        public static string WizardTemplateChooserSelectProjectButton {
+        public static string WizardTemplateChooserTargetNetFrameworkLabel {
             get {
-                return ResourceManager.GetString("WizardTemplateChooserSelectProjectButton", resourceCulture);
+                return ResourceManager.GetString("WizardTemplateChooserTargetNetFrameworkLabel", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to _Target Framework:.
+        ///   Looks up a localized string similar to Template type:.
         /// </summary>
-        public static string WizardTemplateChooserTargetFrameworkLabel {
+        public static string WizardTemplateChooserTemplateTypeLabel {
             get {
-                return ResourceManager.GetString("WizardTemplateChooserTargetFrameworkLabel", resourceCulture);
+                return ResourceManager.GetString("WizardTemplateChooserTemplateTypeLabel", resourceCulture);
             }
         }
         
