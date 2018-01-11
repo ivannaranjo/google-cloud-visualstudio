@@ -1,5 +1,6 @@
 ﻿using Google.Apis.Container.v1.Data;
 using GoogleCloudExtension.Accounts;
+using GoogleCloudExtension.ApiManagement;
 using GoogleCloudExtension.CloudExplorer;
 using GoogleCloudExtension.DataSources;
 using System;
@@ -29,6 +30,12 @@ namespace GoogleCloudExtension.CloudExplorerSources.Gke
             IsWarning = true
         };
 
+        private static readonly IList<string> s_requiredApis = new List<string>
+        {
+            // The GKE API is required.
+            KnownApis.ContainerEngineApiName
+        };
+
         private IList<Cluster> _clusters;
         private Lazy<GkeDataSource> _dataSource;
 
@@ -40,7 +47,16 @@ namespace GoogleCloudExtension.CloudExplorerSources.Gke
 
         public override TreeLeaf NoItemsPlaceholder => s_noItemsPlacehoder;
 
+        public override TreeLeaf ApiNotEnabledPlaceholder
+            => new TreeLeaf
+            {
+                Caption = "The GKE API is not enabled",
+                IsError = true
+            };
+
         public override string RootCaption => "Container Engine";
+
+        public override IList<string> RequiredApis => s_requiredApis;
 
         public override void Initialize(ICloudSourceContext context)
         {

@@ -88,7 +88,7 @@ namespace GoogleCloudExtension.PublishDialogSteps.ChoiceStep
                     Name = "Container Registry",
                     Command = new ProtectedCommand(
                         OnGcrChoiceCommand,
-                        canExecuteCommand: _dialog.Project.IsAspNetCoreProject()),
+                        canExecuteCommand: PublishDialog.Project.IsAspNetCoreProject()),
                     Icon = s_gkeIcon.Value,  // TODO: Add GCR icon.
                     ToolTip = "Build and push a new Docker image to GCR."
                 },
@@ -107,7 +107,7 @@ namespace GoogleCloudExtension.PublishDialogSteps.ChoiceStep
         private void OnGcrChoiceCommand()
         {
             var nextStep = GcrStepViewModel.CreateStep();
-            _dialog.NavigateToStep(nextStep);
+            PublishDialog.NavigateToStep(nextStep);
         }
 
         private void OnGkeChoiceCommand()

@@ -58,5 +58,10 @@ namespace GoogleCloudExtension.ApiManagement
         /// The API necessary to clone/create Google Cloud Source Repositories.
         /// </summary>
         public const string CloudSourceRepositoryApiName = "sourcerepo.googleapis.com";
+
+        /// <summary>
+        /// The API necessary to browse the Google Container Registry.
+        /// </summary>
+        public const string ContainerRegistryApiName = "containerregistry.googleapis.com";
     }
 }

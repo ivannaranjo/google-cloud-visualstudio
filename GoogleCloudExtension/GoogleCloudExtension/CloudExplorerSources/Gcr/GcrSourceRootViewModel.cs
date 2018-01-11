@@ -1,4 +1,5 @@
 ﻿using GoogleCloudExtension.Accounts;
+using GoogleCloudExtension.ApiManagement;
 using GoogleCloudExtension.CloudExplorer;
 using GoogleCloudExtension.DataSources;
 using GoogleCloudExtension.DockerUtils;
@@ -41,6 +42,12 @@ namespace GoogleCloudExtension.CloudExplorerSources.Gcr
             IsWarning = true
         };
 
+        private static readonly IList<string> s_requiredApis = new List<string>
+        {
+            // The GCR API is required.
+            KnownApis.ContainerRegistryApiName
+        };
+
         private Lazy<DockerRepoDataSource> _dataSource;
 
         public DockerRepoDataSource DataSource => _dataSource.Value;
@@ -51,7 +58,16 @@ namespace GoogleCloudExtension.CloudExplorerSources.Gcr
 
         public override TreeLeaf NoItemsPlaceholder => s_noItemsPlacehoder;
 
+        public override TreeLeaf ApiNotEnabledPlaceholder
+            => new TreeLeaf
+            {
+                Caption = "The GCR API is not enabled",
+                IsError = true,
+            };
+
         public override string RootCaption => "Container Registry";
+
+        public override IList<string> RequiredApis => s_requiredApis;
 
         public override void Initialize(ICloudSourceContext context)
         {
