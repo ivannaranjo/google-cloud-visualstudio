@@ -87,22 +87,16 @@ namespace GoogleCloudExtension.CloudExplorerSources.Gcr
 
         protected override async Task LoadDataOverride()
         {
-            var repos = new List<GcrRepoViewModel>();
-            foreach (var name in s_repoNames)
-            {
-                var tags = await _dataSource.Value.GetRepoTagsAsync(name, "");
-                if (tags.Children.Count > 0)
+            var repoTasks = s_repoNames
+                .Select(async (name) =>
                 {
-                    repos.Add(new GcrRepoViewModel(this, name, tags));
-                }
-                if (repos.Count >= 1)
-                {
-                    break;
-                }
-            }
+                    var tags = await _dataSource.Value.GetRepoTagsAsync(name);
+                    return new GcrRepoViewModel(this, name, tags);
+                });
+            var repos = await Task.WhenAll(repoTasks);
 
             Children.Clear();
-            foreach (var repo in repos)
+            foreach (var repo in repos.Where(x => x.Children.Count > 0))
             {
                 Children.Add(repo);
             }
