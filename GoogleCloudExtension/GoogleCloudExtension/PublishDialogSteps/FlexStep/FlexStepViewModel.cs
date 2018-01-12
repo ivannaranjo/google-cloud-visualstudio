@@ -50,7 +50,6 @@ namespace GoogleCloudExtension.PublishDialogSteps.FlexStep
         private bool _promote = true;
         private bool _openWebsite = true;
         private bool _needsAppCreated = false;
-        private string _dockerImage;
 
         /// <summary>
         /// The version to use for the the app in App Engine Flex.
@@ -98,7 +97,9 @@ namespace GoogleCloudExtension.PublishDialogSteps.FlexStep
             }
         }
 
-        public bool HasDockerImage => _dockerImage != null;
+        public string DockerImage { get; }
+
+        public bool HasDockerImage => !string.IsNullOrEmpty(DockerImage);
 
         /// <summary>
         /// Whether to display the input controls to the user.
@@ -133,7 +134,7 @@ namespace GoogleCloudExtension.PublishDialogSteps.FlexStep
         private FlexStepViewModel(FlexStepContent content, string dockerImage, IGaeDataSource dataSource = null, IApiManager apiManager = null)
             : this(content, dataSource: dataSource, apiManager: apiManager)
         {
-            _dockerImage = dockerImage;
+            DockerImage = dockerImage;
         }
 
         private async Task OnSetAppRegionCommandAsync()

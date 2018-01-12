@@ -17,5 +17,7 @@ namespace GoogleCloudExtension.PublishDialogSteps.FlexStep.SampleData
         public bool NeedsAppCreated { get; } = false;
 
         public bool GeneralError { get; } = false;
+
+        public bool HasDockerImage { get; } = false;
     }
 }

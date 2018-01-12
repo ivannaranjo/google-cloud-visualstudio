@@ -10,7 +10,7 @@
              xmlns:sample="clr-namespace:GoogleCloudExtension.PublishDialogSteps.FlexStep.SampleData"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
-             d:DataContext="{d:DesignInstance sample:GeneralErrorState, IsDesignTimeCreatable=True}">
+             d:DataContext="{d:DesignInstance sample:LoadedWithDockerImageState, IsDesignTimeCreatable=True}">
 
     <UserControl.Resources>
         <ResourceDictionary>
@@ -56,6 +56,17 @@
                       Margin="0,5,0,0"
                       Content="{x:Static ext:Resources.PublishDialogOpenWebsiteCaption}"
                       Style="{StaticResource CommonTextStyleBase}"/>
+
+            <StackPanel Visibility="{Binding HasDockerImage, Converter={utils:VisibilityConverter}}">
+                <Label Content="Image being published:"
+                       Target="{Binding ElementName=_iamgeName}"
+                       Margin="0,5,0,0"
+                       Style="{StaticResource CommonLabelStyle}"/>
+                <TextBox x:Name="_imageName"
+                         Text="{Binding DockerImage, Mode=OneTime}"
+                         IsReadOnly="True"
+                         Style="{StaticResource CommonTextBoxStyle}"/>
+            </StackPanel>
         </StackPanel>
 
         <!-- The message that the project is being loaded. -->

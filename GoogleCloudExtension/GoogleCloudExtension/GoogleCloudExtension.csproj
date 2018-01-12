@@ -229,6 +229,7 @@
     <Compile Include="CloudSourceRepositories\CsrUtils.cs" />
     <Compile Include="CloudSourceRepositories\AsyncRepositories.cs" />
     <Compile Include="PublishDialogSteps\FlexStep\SampleData\GeneralErrorState.cs" />
+    <Compile Include="PublishDialogSteps\FlexStep\SampleData\LoadedWithDockerImageState.cs" />
     <Compile Include="PublishDialogSteps\FlexStep\SampleData\LoadedState.cs" />
     <Compile Include="PublishDialogSteps\FlexStep\SampleData\LoadingState.cs" />
     <Compile Include="PublishDialogSteps\FlexStep\SampleData\NeedsApiEnabledState.cs" />
