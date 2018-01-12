@@ -24,7 +24,7 @@ namespace GoogleCloudExtension.DockerUtils
             _client = new HttpClient();
         }
 
-        public async Task<RepoTags> GetRepoTagsAsync(string repo, string root)
+        public async Task<RepoTags> GetRepoTagsAsync(string repo, string root = "")
         {
             var name = GetFullName(root);
             var url = GetListTagsUrl(repo: repo, name: name);
