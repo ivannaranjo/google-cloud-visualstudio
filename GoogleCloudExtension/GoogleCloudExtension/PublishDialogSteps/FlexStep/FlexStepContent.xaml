@@ -7,9 +7,10 @@
              xmlns:ext="clr-namespace:GoogleCloudExtension"
              xmlns:utils="clr-namespace:GoogleCloudExtension.Utils;assembly=GoogleCloudExtension.Utils"
              xmlns:controls="clr-namespace:GoogleCloudExtension.Controls"
+             xmlns:sample="clr-namespace:GoogleCloudExtension.PublishDialogSteps.FlexStep.SampleData"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
-             d:DataContext="{d:DesignInstance local:FlexStepViewModel}">
+             d:DataContext="{d:DesignInstance sample:GeneralErrorState, IsDesignTimeCreatable=True}">
 
     <UserControl.Resources>
         <ResourceDictionary>
