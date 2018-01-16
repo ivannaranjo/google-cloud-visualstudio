@@ -50,6 +50,9 @@ namespace GoogleCloudExtension.PublishDialogSteps.FlexStep
         private bool _promote = true;
         private bool _openWebsite = true;
         private bool _needsAppCreated = false;
+        private bool _useDefaultAppYaml = true;
+        private bool _useAppYaml = false;
+        private string _appYamlPath;
 
         /// <summary>
         /// The version to use for the the app in App Engine Flex.
@@ -106,6 +109,27 @@ namespace GoogleCloudExtension.PublishDialogSteps.FlexStep
         /// </summary>
         public override bool ShowInputControls => base.ShowInputControls && !NeedsAppCreated;
 
+        public bool UseDefaultAppYaml
+        {
+            get { return _useDefaultAppYaml; }
+            set { SetValueAndRaise(ref _useDefaultAppYaml, value); }
+        }
+
+        public bool UseAppYaml
+        {
+            get { return _useAppYaml; }
+            set { SetValueAndRaise(ref _useAppYaml, value); }
+        }
+        
+        /// <summary>
+        /// The path to the app.yaml to use when deploying a Docker image.
+        /// </summary>
+        public string AppYamlPath
+        {
+            get { return _appYamlPath; }
+            set { SetValueAndRaise(ref _appYamlPath, value); }
+        }
+
         /// <summary>
         /// The command to execute to enable the necessary APIs for the project.
         /// </summary>
@@ -115,6 +139,11 @@ namespace GoogleCloudExtension.PublishDialogSteps.FlexStep
         /// The command to execute to create the App Engine app and set the region for it.
         /// </summary>
         public ICommand SetAppRegionCommand { get; }
+
+        /// <summary>
+        /// The command to execute to browse for an app.yaml to use for the deployment of a docker image.
+        /// </summary>
+        public ICommand BrowseAppYamlCommand { get; }
 
         private IGaeDataSource CurrentDataSource => _dataSource ?? new GaeDataSource(
                 CredentialsStore.Default.CurrentProjectId,
@@ -129,6 +158,7 @@ namespace GoogleCloudExtension.PublishDialogSteps.FlexStep
 
             EnableApiCommand = new ProtectedAsyncCommand(OnEnableApiCommandAsync);
             SetAppRegionCommand = new ProtectedAsyncCommand(OnSetAppRegionCommandAsync);
+            BrowseAppYamlCommand = new ProtectedCommand(OnBrowseAppYaml);
         }
 
         private FlexStepViewModel(FlexStepContent content, string dockerImage, IGaeDataSource dataSource = null, IApiManager apiManager = null)
@@ -149,6 +179,22 @@ namespace GoogleCloudExtension.PublishDialogSteps.FlexStep
         {
             await CurrentApiManager.EnableServicesAsync(s_requiredApis);
             PublishDialog.TrackTask(ValidateGcpProjectState());
+        }
+
+        private void OnBrowseAppYaml()
+        {
+            var dialog = new System.Windows.Forms.OpenFileDialog
+            {
+                Multiselect = false
+            };
+
+            var result = dialog.ShowDialog();
+            if (result == System.Windows.Forms.DialogResult.Cancel)
+            {
+                return;
+            }
+
+            AppYamlPath = dialog.FileName;
         }
 
         protected override void HasErrorsChanged()

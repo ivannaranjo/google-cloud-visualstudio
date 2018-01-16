@@ -8,7 +8,11 @@ namespace GoogleCloudExtension.PublishDialogSteps.FlexStep.SampleData
 {
     public class LoadedWithDockerImageState : LoadedState
     {
-        public string DockerImage { get; } = "gcr.io/project/image:tag";
+        public string AppYamlPath
+        {
+            get { return @"c:\somewhere\over\the\raimbow\app.yaml"; }
+            set { }
+        }
 
         new public bool HasDockerImage { get; } = true;
     }
