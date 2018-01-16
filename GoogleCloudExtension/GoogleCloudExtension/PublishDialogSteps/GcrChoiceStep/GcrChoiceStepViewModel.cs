@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows;
+using GoogleCloudExtension.PublishDialogSteps.FlexStep;
 
 namespace GoogleCloudExtension.PublishDialogSteps.GcrChoiceStep
 {
@@ -22,7 +23,6 @@ namespace GoogleCloudExtension.PublishDialogSteps.GcrChoiceStep
         private static readonly Lazy<ImageSource> s_gkeIcon = new Lazy<ImageSource>(() => ResourceUtils.LoadImage(GkeIconPath));
 
         private readonly GcrChoiceStepContent _content;
-        private IPublishDialog _dialog;
         private IEnumerable<Choice> _choices;
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace GoogleCloudExtension.PublishDialogSteps.GcrChoiceStep
 
         public override void OnPushedToDialog(IPublishDialog dialog)
         {
-            _dialog = dialog;
+            base.OnPushedToDialog(dialog);
 
             Choices = new List<Choice>
             {
@@ -76,7 +76,8 @@ namespace GoogleCloudExtension.PublishDialogSteps.GcrChoiceStep
 
         private void OnAppEngineChoiceCommand()
         {
-            throw new NotImplementedException();
+            var nextStep = FlexStepViewModel.CreateStep(PublishDialog.ImageTag);
+            PublishDialog.NavigateToStep(nextStep);
         }
 
         public static IPublishDialogStep CreateStep()

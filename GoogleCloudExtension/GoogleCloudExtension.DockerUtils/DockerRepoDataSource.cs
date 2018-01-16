@@ -43,6 +43,8 @@ namespace GoogleCloudExtension.DockerUtils
 
         public string GetFullPath(string repo, string name, string hash) => $"{repo}/{_projectId}/{name}@{hash}";
 
+        public string GetDockerImageName(string repo, string name, string tag) => $"{repo}/{_projectId}/{name}:{tag}";
+
         private async Task<string> GetUserCredentialsAsync()
         {
             var token = await _credentials.UnderlyingCredential.GetAccessTokenForRequestAsync();

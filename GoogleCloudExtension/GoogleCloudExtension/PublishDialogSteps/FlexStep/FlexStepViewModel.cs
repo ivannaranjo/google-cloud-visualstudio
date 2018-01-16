@@ -175,6 +175,101 @@ namespace GoogleCloudExtension.PublishDialogSteps.FlexStep
                 return;
             }
 
+            if (HasDockerImage)
+            {
+                await PublishDockerImageAsync();
+            }
+            else
+            {
+                await PublishProjectAsync();
+            }
+        }
+
+        #endregion
+
+        private async Task PublishDockerImageAsync()
+        {
+            try
+            {
+                var verifyGcloudTask = GCloudWrapperUtils.VerifyGCloudDependencies();
+                PublishDialog.TrackTask(verifyGcloudTask);
+                if (!await verifyGcloudTask)
+                {
+                    Debug.WriteLine("Gcloud dependencies not met, aborting publish operation.");
+                    return;
+                }
+
+                var context = new GCloudContext
+                {
+                    CredentialsPath = CredentialsStore.Default.CurrentAccountPath,
+                    ProjectId = CredentialsStore.Default.CurrentProjectId,
+                    AppName = GoogleCloudExtensionPackage.ApplicationName,
+                    AppVersion = GoogleCloudExtensionPackage.ApplicationVersion,
+                };
+                var options = new AppEngineFlexDeployment.DeploymentOptions
+                {
+                    Version = Version,
+                    Promote = Promote,
+                    Context = context,
+                    DockerImage = DockerImage
+                };
+
+                GcpOutputWindow.Activate();
+                GcpOutputWindow.Clear();
+                GcpOutputWindow.OutputLine($"Publishing Docker image {DockerImage}");
+
+                PublishDialog.FinishFlow();
+
+                TimeSpan deploymentDuration;
+                AppEngineFlexDeploymentResult result;
+                using (StatusbarHelper.Freeze())
+                using (StatusbarHelper.ShowDeployAnimation())
+                using (ProgressBarHelper progress =
+                    StatusbarHelper.ShowProgressBar(Resources.FlexPublishProgressMessage))
+                using (ShellUtils.SetShellUIBusy())
+                {
+                    DateTime startDeploymentTime = DateTime.Now;
+                    result = await AppEngineFlexDeployment.PublishDockerImageAsync(
+                        options,
+                        progress,
+                        GcpOutputWindow.OutputLine);
+                    deploymentDuration = DateTime.Now - startDeploymentTime;
+                }
+
+                if (result != null)
+                {
+                    GcpOutputWindow.OutputLine("Succesfully published Docker image.");
+                    StatusbarHelper.SetText(Resources.PublishSuccessStatusMessage);
+
+                    string url = result.GetDeploymentUrl();
+                    GcpOutputWindow.OutputLine(string.Format(Resources.PublishUrlMessage, url));
+                    if (OpenWebsite)
+                    {
+                        Process.Start(url);
+                    }
+
+                    EventsReporterWrapper.ReportEvent(GaeDeployedEvent.Create(CommandStatus.Success, deploymentDuration));
+                }
+                else
+                {
+                    GcpOutputWindow.OutputLine("Failed to publish Docker image.");
+                    StatusbarHelper.SetText(Resources.PublishFailureStatusMessage);
+
+                    EventsReporterWrapper.ReportEvent(GaeDeployedEvent.Create(CommandStatus.Failure));
+                }
+            }
+            catch (Exception ex) when (!ErrorHandlerUtils.IsCriticalException(ex))
+            {
+                GcpOutputWindow.OutputLine("Failed to publish Docker image.");
+                StatusbarHelper.SetText(Resources.PublishFailureStatusMessage);
+
+                EventsReporterWrapper.ReportEvent(GaeDeployedEvent.Create(CommandStatus.Failure));
+            }
+
+        }
+
+        private async Task PublishProjectAsync()
+        {
             IParsedProject project = PublishDialog.Project;
             try
             {
@@ -257,7 +352,6 @@ namespace GoogleCloudExtension.PublishDialogSteps.FlexStep
             }
         }
 
-        #endregion
 
         /// <summary>
         /// Creates a new step instance. This method will also create the necessary view and conect both

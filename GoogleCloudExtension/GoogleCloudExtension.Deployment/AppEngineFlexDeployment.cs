@@ -61,6 +61,8 @@ namespace GoogleCloudExtension.Deployment
             /// The context on which to execute the underlying gcloud command.
             /// </summary>
             public GCloudContext Context { get; set; }
+
+            public string DockerImage { get; set; }
         }
 
         /// <summary>
@@ -78,9 +80,9 @@ namespace GoogleCloudExtension.Deployment
             IToolsPathProvider toolsPathProvider,
             Action<string> outputAction)
         {
-            var stageDirectory = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
-            Directory.CreateDirectory(stageDirectory);
-            progress.Report(0.1);
+                var stageDirectory = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+                Directory.CreateDirectory(stageDirectory);
+                progress.Report(0.1);
 
             using (var cleanup = new Disposable(() => CommonUtils.Cleanup(stageDirectory)))
             {
@@ -127,6 +129,45 @@ namespace GoogleCloudExtension.Deployment
                 return new AppEngineFlexDeploymentResult(
                     projectId: options.Context.ProjectId,
                     service: service,
+                    version: effectiveVersion,
+                    promoted: options.Promote);
+            }
+        }
+
+        public static async Task<AppEngineFlexDeploymentResult> PublishDockerImageAsync(
+            DeploymentOptions options,
+            IProgress<double> progress,
+            Action<string> outputAction)
+        {
+            var stageDirectory = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+            Directory.CreateDirectory(stageDirectory);
+            progress.Report(0.1);
+
+            using (var cleanup = new Disposable(() => CommonUtils.Cleanup(stageDirectory)))
+            {
+                CreateDefaultAppYaml(stageDirectory);
+                progress.Report(0.4);
+
+                // Deploy to app engine, this is where most of the time is going to be spent. Wait for
+                // the operation to finish, update the progress as it goes.
+                var effectiveVersion = options.Version ?? GetDefaultVersion();
+                var deployTask = DeployDockerImageAsync(
+                    stageDirectory: stageDirectory,
+                    dockerImage: options.DockerImage,
+                    version: effectiveVersion,
+                    promote: options.Promote,
+                    context: options.Context,
+                    outputAction: outputAction);
+                if (!await ProgressHelper.UpdateProgress(deployTask, progress, 0.6, 0.9))
+                {
+                    Debug.WriteLine("Failed to deploy bundle.");
+                    return null;
+                }
+                progress.Report(1.0);
+
+                return new AppEngineFlexDeploymentResult(
+                    projectId: options.Context.ProjectId,
+                    service: DefaultServiceName,
                     version: effectiveVersion,
                     promoted: options.Promote);
             }
@@ -264,6 +305,12 @@ namespace GoogleCloudExtension.Deployment
             }
         }
 
+        private static void CreateDefaultAppYaml(string stageDirectory)
+        {
+            var targetAppYaml = Path.Combine(stageDirectory, AppYamlName);
+            File.WriteAllText(targetAppYaml, AppYamlDefaultContent);
+        }
+
         private static Task<bool> DeployAppBundleAsync(
             string stageDirectory,
             string version,
@@ -274,6 +321,24 @@ namespace GoogleCloudExtension.Deployment
             var appYamlPath = Path.Combine(stageDirectory, AppYamlName);
             return GCloudWrapper.DeployAppAsync(
                 appYaml: appYamlPath,
+                version: version,
+                promote: promote,
+                outputAction: outputAction,
+                context: context);
+        }
+
+        private static Task<bool> DeployDockerImageAsync(
+            string stageDirectory,
+            string dockerImage,
+            string version,
+            bool promote,
+            GCloudContext context,
+            Action<string> outputAction)
+        {
+            var appYaml = Path.Combine(stageDirectory, AppYamlName);
+            return GCloudWrapper.DeployAppWithDockerImageAsync(
+                appYaml: appYaml,
+                dockerImage: dockerImage,
                 version: version,
                 promote: promote,
                 outputAction: outputAction,

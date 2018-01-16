@@ -84,6 +84,23 @@ namespace GoogleCloudExtension.GCloud
                 context);
         }
 
+        public static Task<bool> DeployAppWithDockerImageAsync(
+            string appYaml,
+            string dockerImage,
+            string version,
+            bool promote,
+            Action<string> outputAction,
+            GCloudContext context)
+        {
+            var versionParameter = version != null ? $"--version={version}" : "";
+            var promoteParameter = promote ? "--promote" : "--no-promote";
+
+            return RunCommandAsync(
+                $"app deploy \"{appYaml}\" {versionParameter} {promoteParameter} --image-url={dockerImage} --skip-staging --quiet",
+                outputAction,
+                context);
+        }
+
         /// <summary>
         /// Creates a file with the cluster credentials at the given <paramref name="path"/>
         /// </summary>

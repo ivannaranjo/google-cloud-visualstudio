@@ -24,6 +24,7 @@ namespace GoogleCloudExtension.CloudExplorerSources.Gcr
         private readonly RepoImage _image;
         private readonly string _hash;
         private readonly string _fullPath;
+        private readonly string _dockerImageName;
 
         public GcrImageViewModel(GcrSourceRootViewModel owner, GcrRepoViewModel repo, string name, string hash, RepoImage image)
         {
@@ -33,6 +34,7 @@ namespace GoogleCloudExtension.CloudExplorerSources.Gcr
             _hash = hash;
 
             _fullPath = owner.DataSource.GetFullPath(repo: _repo.RepoName, name: name, hash: hash);
+            _dockerImageName = owner.DataSource.GetDockerImageName(repo: _repo.RepoName, name: name, tag: image.Tags.First());
 
             Caption = String.Join(", ", image.Tags);
             Icon = s_imageIcon.Value;
@@ -46,7 +48,7 @@ namespace GoogleCloudExtension.CloudExplorerSources.Gcr
 
         private void OnPublishCommand()
         {
-            PublishDialogWindow.PromptUser(_fullPath);
+            PublishDialogWindow.PromptUser(_dockerImageName);
         }
 
         #region ICloudExplorerItemSource
